@@ -1,0 +1,32 @@
+.card {
+    border: 1px solid red;
+    display: flex;
+    width: 50%;
+    margin: 10px auto;
+}
+
+.card-body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto 5px;
+}
+
+button {
+    height: 30px;
+    width: 90px;
+    margin: 3px;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+img {
+    border: 1px solid red;
+    width: 100px;
+    margin: 5px;
+}

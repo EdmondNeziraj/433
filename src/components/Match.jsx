@@ -5,12 +5,18 @@ function Match() {
         <div className='card'>
             <img src='#'></img>
             <div className='card-body'>
-                <h4 className='card-title'> Title </h4>
-                <p>Time and Date</p>
-                <button>Join Game</button>
+                <div className="info">
+                    <h4 className='card-title'> Title </h4>
+                    <p>Time and Date</p>
+                </div>
+                <span>8/10p</span>
+                <div className="btn-group">
+                    <button>Join Game</button>
+                    <button>Details</button>
+                </div>
             </div>
         </div>
     );
 }
 
-export default App;
+export default Match;
