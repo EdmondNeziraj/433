@@ -1,6 +1,19 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const Match = require('./models/match');
+
+mongoose.connect('mongodb://localhost:27017/4-3-3', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+
+const db = mongoose.connection;
+db.on('error', console.log.bind(console, "connection error"));
+db.once('open', () => {
+    console.log("Database connected");
+});
 
 const app = express();
 
@@ -15,6 +28,13 @@ app.get('/home', (req, res) => {
 
 app.get('/matches', (req, res) => {
     res.send('hello from matches')
+})
+
+app.get('/makematch', async (req, res) => {
+    const match = new Match({ title: 'camp nou'});
+    await match.save();
+
+    res.send(match);
 })
 
 app.get('/host', (req, res) => {
