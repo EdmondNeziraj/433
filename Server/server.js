@@ -22,7 +22,7 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.get('/home', (req, res) => {
@@ -32,6 +32,10 @@ app.get('/home', (req, res) => {
 app.get('/matches', async (req, res) => {
     const matches = await Match.find({});
     res.send(matches);
+})
+
+app.get('/matches/:id', async (req, res) => {
+    res.send(`looking deatils of match ${req.params.id}`)
 })
 
 app.get('/host', (req, res) => {

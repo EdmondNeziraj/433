@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import '../styles/Homepage.css';
 import axios from 'axios';
-import Navbar from './Navbar';
-import Footer from './Footer';
 
 
 const Homepage = () => {
@@ -16,7 +14,7 @@ const Homepage = () => {
   return (
     <div className="App">
       <header className="App-header">
-        This is going to be the homepage, yep
+        <h1>This is going to be the homepage</h1>
       </header>
     </div>
   );
