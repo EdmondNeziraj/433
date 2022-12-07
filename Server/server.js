@@ -35,7 +35,9 @@ app.get('/matches', async (req, res) => {
 })
 
 app.get('/matches/:id', async (req, res) => {
-    res.send(`looking deatils of match ${req.params.id}`)
+    console.log(req.params.id);
+    const match = await Match.findById(req.params.id);
+    res.send(match)
 })
 
 app.get('/host', (req, res) => {

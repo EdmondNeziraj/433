@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Matchespage() {
+function MatchDetail() {
     const [matches, setMatches] = useState([{}]);
 
     useEffect(() => {
@@ -14,14 +14,10 @@ function Matchespage() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>This is going to be the Matchespage</h1>
+                <h1>This is going to be the MatchDetail</h1>
                 <div>
-                    Locations of soccer fields:
-                    <ul>
-                        {matches.map((match) => (
-                            <li><a href={"/matches/" + match._id}>{match.location}</a></li>
-                        ))}
-                    </ul>
+                    Details of of soccer fields:
+                    <p>{matches[0].location}</p>
                 </div>
             </header>
 
@@ -29,4 +25,4 @@ function Matchespage() {
     );
 }
 
-export default Matchespage;
+export default MatchDetail;
