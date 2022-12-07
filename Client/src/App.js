@@ -11,11 +11,7 @@ import Matchespage from './components/Matchespage';
 function App() {
   return (
     <div className='App'>
-      <Routes>
-        <Route exact path='/home' render={ () => <Homepage/>} />
-        {/* <Route path='/host' component={Hostpage} />
-        <Route path='/matches' component={Matchespage} /> */}
-      </Routes>
+      <Matchespage />
     </div>
 
     // <div className="App">

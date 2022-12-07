@@ -2,9 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MatchSchema = new Schema({
-    title: String,
     location: String,
-    players: Number
+    maxPlayers: Number,
+    currentPlayers: Number,
+    time: String,
+    duration: Number
 });
 
 module.exports = mongoose.model('Match', MatchSchema)

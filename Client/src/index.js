@@ -10,8 +10,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Navbar />
-    <Match />
-    <Match />
     <App />
     <Footer />
   </React.StrictMode>
