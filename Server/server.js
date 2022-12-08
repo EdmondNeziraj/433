@@ -34,6 +34,16 @@ app.get('/matches', async (req, res) => {
     res.send(matches);
 })
 
+app.get('/matches/new', (req, res) => {
+    console.log("hello from new match form")
+    res.send("hello from new match form")
+})
+
+app.post('matches', async (req, res) => {
+    console.log(req.body)
+    res.send(req.body);
+})
+
 app.get('/matches/:id', async (req, res) => {
     console.log(req.params.id);
     const match = await Match.findById(req.params.id);

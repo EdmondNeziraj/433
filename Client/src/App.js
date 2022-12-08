@@ -5,6 +5,7 @@ import Homepage from './components/Homepage';
 import Hostpage from './components/Hostpage';
 import Matchespage from './components/Matchespage';
 import MatchDetail from './components/MatchDetail';
+import NewMatch from './components/NewMatch';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/matches' element={<Matchespage/>} />
           <Route path='/host' element={<Hostpage/>} />
           <Route path={'/matches/6390d443a1442e54c59c5812'} element={<MatchDetail/>} />
+          <Route path='/matches/new' element={<NewMatch/>} />
         </Routes>
       </Router>
     </div>
