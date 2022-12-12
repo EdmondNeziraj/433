@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Match from "./Match";
 
 function Matchespage() {
     const [matches, setMatches] = useState([{}]);
@@ -19,12 +20,12 @@ function Matchespage() {
                     Locations of soccer fields:
                     <ul>
                         {matches.map((match) => (
-                            <li><a href={"/matches/" + match._id}>{match.location}</a></li>
+                            // <li><a href={"/matches/" + match._id}>{match.location}</a></li>
+                            <Match title={match.location} time={match.time} link={"/matches/" + match._id}/>
                         ))}
                     </ul>
                 </div>
             </header>
-
         </div>
     );
 }

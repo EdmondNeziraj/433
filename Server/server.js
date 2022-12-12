@@ -41,7 +41,8 @@ app.get('/matches', async (req, res) => {
         html += `<li><a href="/matches/${match.id}">${match.location}</a></li>`
     }
     html += '</ul>';
-    res.send(html);
+    // res.send(html);
+    res.send(matches);
 })
 
 app.get('/host', (req, res) => {
