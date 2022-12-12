@@ -30,3 +30,8 @@ img {
     width: 150px;
     margin: 5px;
 }
+
+a {
+    text-decoration: none;
+    color: white;
+}
