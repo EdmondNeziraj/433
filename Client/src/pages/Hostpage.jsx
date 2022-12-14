@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Match from "../components/Match";
 
 function Hostpage() {
     const [location, setLocation] = useState('');
     const [time, setTime] = useState('');
+    // const [matches, setMatches] = useState([{}]);
+
+    // useEffect(() => {
+    //     fetch("http://localhost:5000/matches")
+    //         .then((response) => response.json())
+    //         .then((responseJson) => {
+    //             setMatches(responseJson)
+    //         });
+    // }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const match = {location, time}
+        const match = { location, time }
 
         const response = await fetch('/matches', {
             method: 'POST',
@@ -24,7 +35,7 @@ function Hostpage() {
             setTime('');
             console.log('new match added', json);
         }
-        
+
     }
 
     return (
@@ -38,6 +49,7 @@ function Hostpage() {
                         type='text'
                         onChange={(e) => setLocation(e.target.value)}
                         value={location}
+                        // name={"match[location]"}
                     />
 
                     <label>Time: </label>
@@ -45,11 +57,21 @@ function Hostpage() {
                         type='text'
                         onChange={(e) => setTime(e.target.value)}
                         value={time}
+                        // name={"match[time]"}
                     />
                     <button>Submit!</button>
                 </form>
-            </header>
-        </div>
+                {/* <ul>
+                        {matches.map((match) => (
+                            // <li><a href={"/matches/" + match._id}>{match.location}</a></li>
+                            <Match
+                                title={match.location}
+                                time={match.time}
+                                matchUrl={"/matches/" + match._id} />
+                        ))}
+                    </ul> */}
+            </header >
+        </div >
     );
 }
 

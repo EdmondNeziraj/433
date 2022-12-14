@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
 const Match = require('./models/match');
 
-mongoose.connect('mongodb://localhost:27017/4-3-3', {
+// mongoose.connect('mongodb://localhost:27017/4-3-3', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+
+// connect the database to the server
+mongoose.connect('mongodb+srv://edmond:edmond@cluster0.csoevyt.mongodb.net/?retryWrites=true&w=majority', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 })
+
+
 
 const db = mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
@@ -14,7 +22,7 @@ db.once('open', () => {
 
 data = [
     {
-        location: "Pelham Bay Park, Bronx",
+        location: "Pelham Bay Parkk, Bronx",
         maxPlayers: 10,
         currentPlayers: 6,
         time: "7:00PM",

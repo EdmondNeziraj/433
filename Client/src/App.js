@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom"
 import Homepage from './pages/Homepage';
@@ -11,6 +11,15 @@ import Footer from './components/Footer';
 
 
 function App() {
+  const [matches, setMatches] = useState([{}]);
+
+  useEffect(() => {
+      fetch("http://localhost:5000/matches")
+          .then((response) => response.json())
+          .then((responseJson) => {
+              setMatches(responseJson)
+          });
+  }, []);
 
   return (
     <div className='App'>
@@ -18,9 +27,9 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/home' element={<Homepage/>} />
-          <Route path='/matches' element={<Matchespage/>} />
+          <Route path='/matches' element={<Matchespage/>} matches={matches}/>
           <Route path='/host' element={<Hostpage/>} />
-          <Route path={'/matches/6390d443a1442e54c59c5812'} element={<MatchDetail/>} />
+          <Route path={`/matches/63979b686090acd15eb21ed4`} element={<MatchDetail/>} matches={matches} />
           <Route path='/matches/new' element={<NewMatch/>} />
         </Routes>
         <Footer />

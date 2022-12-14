@@ -5,7 +5,7 @@ function Matchespage() {
     const [matches, setMatches] = useState([{}]);
 
     useEffect(() => {
-        fetch("/matches")
+        fetch("http://localhost:5000/matches")
             .then((response) => response.json())
             .then((responseJson) => {
                 setMatches(responseJson)
