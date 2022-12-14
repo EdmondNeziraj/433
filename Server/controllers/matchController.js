@@ -108,15 +108,40 @@ const updateMatchForm = async (req, res) => {
 // UPDATE a match
 const updateMatch = async (req, res) => {
     const { id } = req.params;
-    const match = await Match.findByIdAndUpdate(id, { ...req.body.match }); 
-    res.redirect(`/matches/${match._id}`);
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send({error: "No such match"});
+    }
+
+    console.log(id);
+
+    const match = await Match.findByIdAndUpdate(id, { ...req.body }); 
+    
+    if (!match) {
+        return res.status(404).send({error: "No such match"});
+    }
+    
+    // res.redirect(`/matches/${match._id}`);
+    res.send(match);
 }
 
 // DELETE a workout
 const deleteMatch = async (req, res) => {
     const { id } = req.params;
-    await Match.findByIdAndDelete(id);
-    res.redirect('/matches');
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).send({error: "No such match"});
+    }
+
+    console.log(id);
+    const match = await Match.findByIdAndDelete(id);
+    // res.redirect('/matches');
+
+    if (!match) {
+        return res.status(404).send({error: "No such match"});
+    }
+
+    res.send(match);
 }
 
 module.exports = {
