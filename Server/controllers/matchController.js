@@ -54,32 +54,6 @@ const createMatch =  async (req, res) => {
     // res.redirect(`/matches/${match._id}`);
 }
 
-// GET the form to update a match
-const updateMatchForm = async (req, res) => {
-    const match = await Match.findById(req.params.id)
-    res.send(`
-        <div className="App">
-            <h1>edit</h1>
-            <form action="/matches/${match._id}?method=PUT" method="POST">
-                <div>
-                    <label>
-                        Location
-                        <input type="text" name="match[location]" value="${match.location}"/>
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        Time
-                        <input type="text" name="match[time]" value="${match.time}"/>
-                    </label>
-                </div>
-                <button>Update Match</button>
-            </form>
-            <a href="/matches/${match._id}">back to match</a>
-        </div>
-    `)
-}
-
 // UPDATE a match
 const updateMatch = async (req, res) => {
     const { id } = req.params;
@@ -123,7 +97,6 @@ module.exports = {
     getMatches,
     getMatch,
     createMatch,
-    updateMatchForm,
     updateMatch,
     deleteMatch
 }

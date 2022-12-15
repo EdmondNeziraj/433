@@ -8,6 +8,7 @@ import MatchDetail from './pages/MatchDetail';
 import NewMatch from './pages/NewMatch';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import EditMatch from './pages/EditMatch';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path='/matches' element={<Matchespage matches={matches} />} />
           <Route path='/host' element={<Hostpage/>} />
           <Route path="/matches/:id" element={<MatchDetail matches={matches}/>} />
+          <Route path="/matches/:id/edit" element={<EditMatch matches={matches}/>} />
         </Routes>
         <Footer />
       </Router>
