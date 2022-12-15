@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Match from "../components/Match";
 
 function Hostpage() {
     const [location, setLocation] = useState('');
     const [time, setTime] = useState('');
+    const [error, setError] = useState(null);
+    let navigate = useNavigate();
     // const [matches, setMatches] = useState([{}]);
 
     // useEffect(() => {
@@ -17,31 +19,36 @@ function Hostpage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         const match = { location, time }
 
-        const response = await fetch('/matches', {
+        const response = await fetch('http://localhost:5000/matches', {
             method: 'POST',
             body: JSON.stringify(match),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        console.log(response);
+        
         const json = await response.json();
 
+        if (!response.ok) {
+            setError(json.error)
+        }
         if (response.ok) {
             setLocation('');
             setTime('');
+            setError(null);
+            navigate('/matches');
             console.log('new match added', json);
         }
+        
 
     }
 
     return (
         <div className="App">
             <header className="App-header">
-                <h1>This is going to be the hostpage</h1>
                 <form onSubmit={handleSubmit}>
                     <h3>Host a Match</h3>
                     <label>Location: </label>
@@ -60,6 +67,7 @@ function Hostpage() {
                         // name={"match[time]"}
                     />
                     <button>Submit!</button>
+                    {error && <div className="error">{error}</div>}
                 </form>
                 {/* <ul>
                         {matches.map((match) => (

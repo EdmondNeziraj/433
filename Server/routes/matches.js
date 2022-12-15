@@ -3,7 +3,6 @@ const Match = require('../models/match');
 const {
     getMatches,
     getMatch,
-    createMatchForm,
     createMatch,
     updateMatchForm,
     updateMatch,
@@ -17,9 +16,6 @@ router.get('/', getMatches)
 
 // GET a sigle match
 router.get('/:id', getMatch)
-
-// GET the form to create match
-router.get('/new', createMatchForm)
 
 // CREATE a new match
 router.post('/', createMatch)

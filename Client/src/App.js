@@ -27,10 +27,9 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/home' element={<Homepage/>} />
-          <Route path='/matches' element={<Matchespage/>} matches={matches}/>
+          <Route path='/matches' element={<Matchespage matches={matches} />} />
           <Route path='/host' element={<Hostpage/>} />
-          <Route path={`/matches/63979b686090acd15eb21ed4`} element={<MatchDetail/>} matches={matches} />
-          <Route path='/matches/new' element={<NewMatch/>} />
+          <Route path="/matches/:id" element={<MatchDetail matches={matches}/>} />
         </Routes>
         <Footer />
       </Router>

@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 
-function MatchDetail() {
-    const [matches, setMatches] = useState([{}]);
+function MatchDetail({ matches }) {
+    const { id } = useParams();
 
-    useEffect(() => {
-        fetch("http://localhost:5000/matches")
-            .then((response) => response.json())
-            .then((responseJson) => {
-                setMatches(responseJson)
-            });
-    }, []);
+    const match = matches.filter((match) => match._id === id)[0];
 
     return (
         <div className="App">
             <header className="App-header">
-                <h1>This is going to be the MatchDetail</h1>
                 <div>
                     Details of of soccer fields:
-                    <p>{matches[0].location}</p>
+                    <p>{match.location}</p>
+                    <p>{match.time}</p>
+                </div>
+                <div className="btn-group">
+                    <button>Update</button>
+                    <button>Delete</button>
                 </div>
             </header>
 

@@ -44,6 +44,10 @@ app.get('/', (req, res) => {
     res.send('hello from home');
 })
 
+app.get('/home', (req, res) => {
+    res.send('hello from home');
+})
+
 app.use('/matches', matchRoutes)
 
 const port = process.env.PORT || 5000;

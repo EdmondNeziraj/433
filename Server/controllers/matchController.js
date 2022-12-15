@@ -9,8 +9,8 @@ const getMatches = async (req, res) => {
         html += `<li><a href="/matches/${match.id}">${match.location}</a></li>`
     }
     html += '</ul>';
-    res.send(html);
-    // res.send(matches);
+    //res.send(html);
+    res.status(200).send(matches);
 }
 
 // GET a single match
@@ -33,32 +33,7 @@ const getMatch = async (req, res) => {
         return res.status(404).send({error: "No such match"});
     }
 
-    res.send(match);
-}
-
-// GET the form to create match
-const createMatchForm = (req, res) => {
-    console.log("hello from new match form")
-    res.send(`
-        <div className="App">
-                <form action="/matches" method="POST">
-                    <div>
-                        <label>
-                            Location
-                            <input type="text" name="match[location]"/>
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Time
-                            <input type="text" name="match[time]"/>
-                        </label>
-                    </div>
-                    <button>Create Match</button>
-                </form>
-                <a href="/matches">all matches</a>
-            </div>
-    `)
+    res.status(200).send(match);
 }
 
 // CREATE a new match
@@ -68,9 +43,9 @@ const createMatch =  async (req, res) => {
     // add doc to db
     try {
         const match = await Match.create({location, maxPlayers, currentPlayers, time, duration})
-        res.send(match);
+        res.status(200).send(match);
     } catch (error) {
-        res.send({error: error.message})
+        res.status(400).send({error: error.message})
     }
     // console.log(req.body.match)
     // const match = new Match(req.body.match);
@@ -122,7 +97,7 @@ const updateMatch = async (req, res) => {
     }
     
     // res.redirect(`/matches/${match._id}`);
-    res.send(match);
+    res.status(200).send(match);
 }
 
 // DELETE a workout
@@ -141,13 +116,12 @@ const deleteMatch = async (req, res) => {
         return res.status(404).send({error: "No such match"});
     }
 
-    res.send(match);
+    res.status(200).send(match);
 }
 
 module.exports = {
     getMatches,
     getMatch,
-    createMatchForm,
     createMatch,
     updateMatchForm,
     updateMatch,
