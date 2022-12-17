@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useMatchesContext } from "../hooks/useMatchesContext";
 
 function EditMatch({matches}) {
     const { id } = useParams();
     const match = matches.filter((match) => match._id === id)[0];
+
+    const { dispatch } = useMatchesContext();
 
     const [location, setLocation] = useState(match.location);
     const [time, setTime] = useState(match.time);
@@ -32,8 +35,9 @@ function EditMatch({matches}) {
             setLocation('');
             setTime('');
             setError(null);
-            navigate('/matches');
+            navigate(`/matches/${json._id}`);
             console.log('match updated', json);
+            dispatch({type: 'UPDATE_MATCH', payload: json})
         }
     }
 

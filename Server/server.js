@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
 
-const matchRoutes = require('./routes/matches.js');
+const matchRoutes = require('./routes/matches');
+const userRoutes = require('./routes/user');
 
 const db_url = process.env.DB_URL;
 
@@ -48,7 +49,9 @@ app.get('/home', (req, res) => {
     res.send('hello from home');
 })
 
-app.use('/matches', matchRoutes)
+app.use('/matches', matchRoutes);
+
+app.use('/user', userRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

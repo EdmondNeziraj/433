@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useMatchesContext } from "../hooks/useMatchesContext";
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
     const match = matches.filter((match) => match._id === id)[0];
+
+    const { dispatch } = useMatchesContext();
 
     const [location, setLocation] = useState('');
     const [time, setTime] = useState('');
@@ -25,7 +28,7 @@ function MatchDetail({ matches }) {
         const json = await response.json();
 
         if (!response.ok) {
-            setError(json.error)
+            setError(json.error) 
         }
         if (response.ok) {
             setLocation('');
@@ -33,6 +36,7 @@ function MatchDetail({ matches }) {
             setError(null);
             navigate('/matches');
             console.log('match deleted', json);
+            dispatch({type: 'DELETE_MATCH', payload: json})
         }
     }
 

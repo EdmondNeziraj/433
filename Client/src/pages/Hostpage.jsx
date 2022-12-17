@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Match from "../components/Match";
+import { useMatchesContext } from "../hooks/useMatchesContext";
 
 function Hostpage() {
+    const { dispatch } = useMatchesContext();
+
     const [location, setLocation] = useState('');
     const [time, setTime] = useState('');
     const [error, setError] = useState(null);
     let navigate = useNavigate();
-    // const [matches, setMatches] = useState([{}]);
 
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/matches")
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             setMatches(responseJson)
-    //         });
-    // }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,8 +34,9 @@ function Hostpage() {
             setLocation('');
             setTime('');
             setError(null);
-            navigate('/matches');
+            navigate(`/matches/${json._id}`);
             console.log('new match added', json);
+            dispatch({type: 'CREATE_MATCH', payload: json});
         }
         
 
@@ -56,7 +52,6 @@ function Hostpage() {
                         type='text'
                         onChange={(e) => setLocation(e.target.value)}
                         value={location}
-                        // name={"match[location]"}
                     />
 
                     <label>Time: </label>
@@ -64,20 +59,11 @@ function Hostpage() {
                         type='text'
                         onChange={(e) => setTime(e.target.value)}
                         value={time}
-                        // name={"match[time]"}
                     />
                     <button>Submit!</button>
                     {error && <div className="error">{error}</div>}
                 </form>
-                {/* <ul>
-                        {matches.map((match) => (
-                            // <li><a href={"/matches/" + match._id}>{match.location}</a></li>
-                            <Match
-                                title={match.location}
-                                time={match.time}
-                                matchUrl={"/matches/" + match._id} />
-                        ))}
-                    </ul> */}
+
             </header >
         </div >
     );
