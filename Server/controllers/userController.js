@@ -14,7 +14,11 @@ const loginUser = async (req, res) => {
 
         // create token
         const token = createToken(user._id);
-        res.status(200).send({ email, token })
+
+        // get user id
+        const userId = user._id;
+
+        res.status(200).send({ email, userId, token })
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
@@ -30,7 +34,10 @@ const signupUser = async (req, res) => {
         // create token
         const token = createToken(user._id);
 
-        res.status(200).send({ email, token })
+        // get user id
+        const userId = user._id;
+
+        res.status(200).send({ email, userId, token })
     } catch (error) {
         res.status(400).send({ error: error.message });
     }

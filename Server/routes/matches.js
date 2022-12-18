@@ -13,11 +13,8 @@ const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router();
 
-
-
 // GET all matches
 router.get('/', getMatches)
-
 
 // GET a single match
 router.get('/:id', getMatch)

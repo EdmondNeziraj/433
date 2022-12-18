@@ -27,6 +27,10 @@ function HostMatch() {
             return 
         }
 
+        const host = user.userId;
+        console.log(host);
+        console.log(user.token);
+
         const match = { 
             title, 
             maxPlayers, 
@@ -36,7 +40,8 @@ function HostMatch() {
             address, 
             city,
             state,
-            zip 
+            zip,
+            host
         }
 
         const response = await fetch('http://localhost:5000/matches', {
@@ -45,7 +50,6 @@ function HostMatch() {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
-
             }
         })
 

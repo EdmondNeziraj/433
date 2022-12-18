@@ -14,7 +14,7 @@ const getMatch = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).send({error: "No such match found"});
     }
-    const match = await Match.findById(id);
+    const match = await Match.findById(id).populate('host');
 
     if (!match) {
         return res.status(404).send({error: "No such match found"});
@@ -34,7 +34,8 @@ const createMatch =  async (req, res) => {
         address, 
         city,
         state,
-        zip 
+        zip,
+        host
     } = req.body;
 
     // add doc to db
@@ -48,7 +49,8 @@ const createMatch =  async (req, res) => {
             address, 
             city,
             state,
-            zip 
+            zip,
+            host
         })
         res.status(200).send(match);
     } catch (error) {

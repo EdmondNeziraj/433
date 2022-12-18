@@ -8,9 +8,9 @@ import MatchDetail from './pages/MatchDetail';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import EditMatch from './pages/EditMatch';
-import { useMatchesContext } from './hooks/useMatchesContext';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import { useMatchesContext } from './hooks/useMatchesContext';
 import { useAuthContext } from './hooks/useAuthContext';
 
 
@@ -20,11 +20,7 @@ function App() {
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const response = await fetch('http://localhost:5000/matches', {
-        // headers: {
-        //   'Authorization': `Bearer ${user.token}`
-        // }
-      })
+      const response = await fetch('http://localhost:5000/matches')
       const json = await response.json();
 
       if (response.ok) {
@@ -32,10 +28,8 @@ function App() {
       }
     }
 
-    // if (user) {
-      fetchMatches();
-    // }
-  }, [dispatch, user]);
+    fetchMatches();
+  }, []);
 
   return (
     <div className='App'>
@@ -43,12 +37,12 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route path='/matches' element={<Matches matches={matches} /> }/>
-          <Route path='/host' element={user ? <HostMatch /> : <Navigate to='/login' />} />
-          <Route path="/matches/:id" element={<MatchDetail matches={matches} /> } />
+          <Route path='/matches' element={<Matches matches={matches} />} />
+          <Route path='/host' element={user ? <HostMatch /> : <Login error={'You must be logged in to host a match!'} />} />
+          <Route path="/matches/:id" element={<MatchDetail matches={matches} />} />
           <Route path="/matches/:id/edit" element={<EditMatch matches={matches} />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={!user ? <Login /> : <Navigate to='/matches' />} />
+          <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/matches' />} />
         </Routes>
         <Footer />
       </Router>

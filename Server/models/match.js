@@ -42,7 +42,11 @@ const MatchSchema = new Schema({
         type: Number,
         required: true
     },
-    author: {
+    host: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    players: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     }

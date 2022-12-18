@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import '../styles/Weather.css';
 
 function Weather({ date, zip}) {
-    const [temp, setTemp] = useState('65F');
-    const [humidity, setHumidity] = useState('70%');
+    const [temp, setTemp] = useState('65');
+    const [humidity, setHumidity] = useState('70');
     const [condition, setCondition] = useState('Sunny')
 
     useEffect(() => {
@@ -14,12 +14,6 @@ function Weather({ date, zip}) {
 
             const day = json.forecast.forecastday[0].day;
 
-            // console.log(`average temp in C: ${day.avgtemp_f}, condition: ${day.condition.text}`);
-            
-            // if (response.ok) {
-            //     dispatch({ type: 'SET_MATCHES', payload: json })
-            // }
-
             setTemp(day.avgtemp_f);
             setHumidity(day.avghumidity);
             setCondition(day.condition.text);
@@ -28,10 +22,10 @@ function Weather({ date, zip}) {
         fetchWeather();
     }, [])
 
-
+ 
     return (
         <div className='weather-container'>
-            <p>temp: {temp} F</p>
+            <p>temp: {temp}F</p>
             <p>hum: {humidity}%</p>
             <p>cond: {condition}</p>
         </div>

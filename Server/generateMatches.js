@@ -202,7 +202,7 @@ const seedDB = async () => {
             city: data[i].city,
             state: data[i].state,
             zip: data[i].zip,
-            // author: data[i].author,
+            host: '639d904483f4c2ba00a407b7',
             latitude: data[i].latitude,
             longitude: data[i].longitude,
         })

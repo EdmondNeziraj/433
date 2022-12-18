@@ -9,7 +9,7 @@ const requireAuth = async (req, res, next) => {
     if (!authorization) {
         return res.status(401).send({ error: 'Authorization token required!' })
     }
-
+ 
     const token = authorization.split(' ')[1];
 
     try {
