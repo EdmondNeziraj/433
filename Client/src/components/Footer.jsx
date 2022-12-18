@@ -4,7 +4,7 @@ import '../styles/Footer.css';
 function Footer() {
     return (
         <div className="footer">
-            <Link to='/home' className='footer-logo'>4-3-3</Link>
+            <Link to='/' className='footer-logo'>4-3-3</Link>
             <span className='footer-item'>&copy; 4-3-3 2022</span>
         </div>
     );

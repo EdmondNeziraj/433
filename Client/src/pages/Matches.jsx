@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Match from "../components/Match";
+import React from "react";
+import MatchCard from "../components/MatchCard";
 
-function Matchespage({matches}) {
+function Matches({matches}) {
     return (
         <div className="App">
             <header className="App-header">
@@ -9,11 +9,12 @@ function Matchespage({matches}) {
                     Locations of soccer fields:
                     <ul>
                         {matches && matches.map((match) => (
-                            <Match
+                            <MatchCard
                                 key={match._id}
-                                title={match.location}
-                                time={match.time}
-                                matchUrl={"/matches/" + match._id} />
+                                // title={match.location}
+                                // time={match.time}
+                                // matchUrl={"/matches/" + match._id} 
+                                match={match}/>
                         ))}
                     </ul>
                 </div>
@@ -22,4 +23,4 @@ function Matchespage({matches}) {
     );
 }
 
-export default Matchespage;
+export default Matches;

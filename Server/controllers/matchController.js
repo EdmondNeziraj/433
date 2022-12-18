@@ -25,11 +25,31 @@ const getMatch = async (req, res) => {
 
 // CREATE a new match
 const createMatch =  async (req, res) => {
-    const {location, maxPlayers, currentPlayers, time, duration} = req.body;
+    const { 
+        title, 
+        maxPlayers, 
+        time, 
+        date, 
+        duration, 
+        address, 
+        city,
+        state,
+        zip 
+    } = req.body;
 
     // add doc to db
     try {
-        const match = await Match.create({location, maxPlayers, currentPlayers, time, duration})
+        const match = await Match.create({ 
+            title, 
+            maxPlayers, 
+            time, 
+            date, 
+            duration, 
+            address, 
+            city,
+            state,
+            zip 
+        })
         res.status(200).send(match);
     } catch (error) {
         res.status(400).send({error: error.message})
