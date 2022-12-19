@@ -28,8 +28,7 @@ function HostMatch() {
         }
 
         const host = user.userId;
-        console.log(host);
-        console.log(user.token);
+        const players = [user.userId];
 
         const match = { 
             title, 
@@ -41,7 +40,8 @@ function HostMatch() {
             city,
             state,
             zip,
-            host
+            host,
+            players
         }
 
         const response = await fetch('http://localhost:5000/matches', {

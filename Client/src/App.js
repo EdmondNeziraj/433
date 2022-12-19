@@ -31,6 +31,8 @@ function App() {
     fetchMatches();
   }, []);
 
+  console.log(matches);
+
   return (
     <div className='App'>
       <Router>

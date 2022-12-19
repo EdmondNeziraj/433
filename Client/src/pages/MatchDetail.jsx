@@ -6,32 +6,16 @@ import { useMatchesContext } from "../hooks/useMatchesContext";
 
 import '../styles/MatchDetail.css'
 
-function MatchDetail() {
+function MatchDetail({ matches }) {
     const { id } = useParams();
     const { dispatch } = useMatchesContext();
     const { user } = useAuthContext();
-    const [match, setMatch] = useState(null);
     const [error, setError] = useState(null);
     let navigate = useNavigate();
 
-    // const match = matches && matches.filter((match) => match._id === id)[0];
-
-    useEffect(() => {
-        const fetchMatch = async () => {
-            const response = await fetch(`http://localhost:5000/matches/${id}`)
-            const json = await response.json();
-
-            if (response.ok) {
-                setMatch(json)
-            }
-        }
-
-        fetchMatch();
-    }, match);
+    const match = matches && matches.filter((match) => match._id === id)[0];
 
     console.log(match);
-    console.log(user);
-
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -67,6 +51,51 @@ function MatchDetail() {
         }
     }
 
+    const handleJoin = async (e) => {
+        e.preventDefault();
+
+        if (!user) {
+            setError('You must be logged in!');
+            return
+        }
+
+        const matchToUpdate = match;
+
+        if (match) {
+            console.log(match.currentPlayers, user.userId);
+
+            matchToUpdate.currentPlayers = match.currentPlayers + 1;
+            matchToUpdate.players = [ ...match.players, user.userId];
+            
+            console.log(matchToUpdate)
+        }
+
+        
+        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(matchToUpdate),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+
+        console.log('user token: ', user.token)
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error)
+        }
+        if (response.ok) {
+            // setTime('');
+            setError(null);
+            navigate(`/matches/${json._id}`);
+            console.log('match updated', matchToUpdate);
+            dispatch({ type: 'UPDATE_MATCH', payload: matchToUpdate })
+        }
+    }
+
     return (
         <div className="App">
             <div className="App-header container">
@@ -86,7 +115,7 @@ function MatchDetail() {
                             <Weather date={match && match.date} zip={match && match.zip} />
                         </div>
                     </div>
-                    <button >Join</button>
+                    {user && match && (user.email !== match.host.email) && (<button onClick={handleJoin}>Join</button>)}
                     <div className="btn-group">
                         {user && match && (user.email === match.host.email) && (
                             <div>
@@ -107,3 +136,51 @@ function MatchDetail() {
 }
 
 export default MatchDetail;
+
+// <div className="text-center">
+//                     <Dropzone
+//                       onDrop={(files) => {
+//                         if (files.length > 0) {
+//                           waitBase64(files[0]);
+//                           setSelectedImage(files[0]);
+//                         }
+//                         files.map((file) => {
+//                           setEntryData({
+//                             ...entryData,
+//                             file: file,
+//                           });
+//                         });
+//                       }}
+//                     >
+//                       {({ getRootProps, getInputProps }) => (
+//                         <div className="container">
+//                           <div
+//                             {...getRootProps({
+//                               className: "dropzone",
+//                             })}
+//                           >
+//                             <input {...getInputProps()} />
+//                             {selectedImage ? (
+//                               <img
+//                                 src={URL.createObjectURL(selectedImage)}
+//                                 alt="Thumb"
+//                                 className="upload-icon upload-icon-edit"
+//                               />
+//                             ) : (
+//                               <div>
+//                                 <img
+//                                   src="/assets/icons/upload.svg"
+//                                   alt="upload"
+//                                   className="upload-icon"
+//                                 />
+//                                 <div>
+//                                   Drag 'n' drop some files here, or click to
+//                                   select files
+//                                 </div>
+//                               </div>
+//                             )}
+//                           </div>
+//                         </div>
+//                       )}
+//                     </Dropzone>
+//                   </div>

@@ -46,10 +46,12 @@ const MatchSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    players: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    players: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Match', MatchSchema)

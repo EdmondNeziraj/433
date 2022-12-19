@@ -3,7 +3,7 @@ const Match = require('../models/match');
 
 // GET all matches
 const getMatches = async (req, res) => {
-    const matches = await Match.find({});
+    const matches = await Match.find({}).populate('host');
     res.status(200).send(matches);
 }
 
@@ -35,7 +35,8 @@ const createMatch =  async (req, res) => {
         city,
         state,
         zip,
-        host
+        host,
+        players
     } = req.body;
 
     // add doc to db
@@ -50,7 +51,8 @@ const createMatch =  async (req, res) => {
             city,
             state,
             zip,
-            host
+            host,
+            players
         })
         res.status(200).send(match);
     } catch (error) {
@@ -66,13 +68,37 @@ const updateMatch = async (req, res) => {
         return res.status(404).send({error: "No such match"});
     }
 
-    await Match.findByIdAndUpdate(id, { ...req.body }); 
+    const { 
+        title, 
+        maxPlayers,
+        currentPlayers, 
+        time, 
+        date, 
+        duration, 
+        address, 
+        city,
+        state,
+        zip,
+        host,
+        players,
+    } = req.body;
+
+    // const { currentPlayers, player } = req.body;
+
+    // console.log(currentPlayers, player)
+
+    // const match = await Match.findById(id);
+    // match.currentPlayers = currentPlayers;
+    // match.players.push(player);
+
+    const match = await Match.findByIdAndUpdate(id, { ...req.body }); 
+    // await match.save();
     
-    const updatedMatch = await Match.findById(id);
-    if (!updatedMatch) {
+    // const updatedMatch = await Match.findById(id);
+    if (!match) {
         return res.status(404).send({error: "No such match"});
     }
-        res.status(200).send(updatedMatch);
+    res.status(200).send(match);
 }
 
 // DELETE a workout

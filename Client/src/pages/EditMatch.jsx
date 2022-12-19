@@ -10,8 +10,7 @@ function EditMatch({ matches }) {
     const { dispatch } = useMatchesContext();
     const { user } = useAuthContext();
 
-
-    const [title, setTitle] = useState(match.title);
+    const [title, setTitle] = useState(match && match.title);
     const [maxPlayers, setMaxPlayers] = useState(match.maxPlayers)
     const [time, setTime] = useState(match.time);
     const [date, setDate] = useState(match.date);
@@ -31,24 +30,26 @@ function EditMatch({ matches }) {
             return
         }
 
-        const host = user.userId;
-
-        const match = {
-            title,
-            maxPlayers,
-            time,
-            date,
-            duration,
-            address,
-            city,
-            state,
-            zip,
-            host
+        const matchUpdated = {
+            title: title,
+            maxPlayers: maxPlayers,
+            time: time,
+            date: date, 
+            duration: duration,
+            address: address,
+            city: city,
+            state: state,
+            zip: zip,
+            host: user.userId,
+            currentPlayers: match.currentPlayers,
+            players: match.players
         }
+
+        console.log('just updated:', matchUpdated)
 
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'PATCH',
-            body: JSON.stringify(match),
+            body: JSON.stringify(matchUpdated),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
@@ -64,8 +65,8 @@ function EditMatch({ matches }) {
             setTime('');
             setError(null);
             navigate(`/matches/${json._id}`);
-            console.log('match updated', json);
-            dispatch({ type: 'UPDATE_MATCH', payload: json })
+            console.log('match updated', matchUpdated);
+            dispatch({ type: 'UPDATE_MATCH', payload: matchUpdated })
         }
     }
 
