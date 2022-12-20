@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import './App.css';
+// import './App.css';
 import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom"
-import Home from './pages/Home';
 import HostMatch from './pages/HostMatch';
 import Matches from './pages/Matches';
 import MatchDetail from './pages/MatchDetail';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import EditMatch from './pages/EditMatch';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -34,11 +31,10 @@ function App() {
   console.log(matches);
 
   return (
-    <div className='App'>
+    <div className='app-body'>
       <Router>
-        <Navbar />
         <Routes>
-          <Route exact path='/' element={<Home />} />
+          <Route exact path='/' element={user ? <Matches matches={matches} /> : <Login/>} />
           <Route path='/matches' element={<Matches matches={matches} />} />
           <Route path='/host' element={user ? <HostMatch /> : <Login error={'You must be logged in to host a match!'} />} />
           <Route path="/matches/:id" element={<MatchDetail matches={matches} />} />
@@ -46,7 +42,6 @@ function App() {
           <Route path='/login' element={!user ? <Login /> : <Navigate to='/matches' />} />
           <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/matches' />} />
         </Routes>
-        <Footer />
       </Router>
     </div>
   );

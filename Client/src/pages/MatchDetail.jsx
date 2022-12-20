@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Weather from "../components/Weather";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
+import Navbar from '../components/Navbar'
+
 
 import '../styles/MatchDetail.css'
 
@@ -15,7 +17,7 @@ function MatchDetail({ matches }) {
 
     const match = matches && matches.filter((match) => match._id === id)[0];
 
-    console.log(match);
+    // console.log('printing match',match.players[1].email);
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -65,12 +67,10 @@ function MatchDetail({ matches }) {
             console.log(match.currentPlayers, user.userId);
 
             matchToUpdate.currentPlayers = match.currentPlayers + 1;
-            matchToUpdate.players = [ ...match.players, user.userId];
-            
-            console.log(matchToUpdate)
+            matchToUpdate.players = [...match.players, user.userId];
         }
 
-        
+
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(matchToUpdate),
@@ -97,38 +97,61 @@ function MatchDetail({ matches }) {
     }
 
     return (
-        <div className="App">
-            <div className="App-header container">
-                <div className=" right-side">
-                    <img src="../assets/images" />
-                    <div className="info">
-                        <div className="match-info">
-                            {match && (<p> {match.title}</p>)}
-                            {match && match.host && (<p> Hosted by: {match.host.email}</p>)}
-                            {match && (<p>{match.date}</p>)}
-                            {match && (<p>{match.time}</p>)}
-                            {match && (<p>{match.durationn}</p>)}
-                            {match && (<p>{match.currentPlayers}/{match && match.maxPlayers}</p>)}
-                            {match && (<p>{match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
-                        </div>
-                        <div className="weather-info">
-                            <Weather date={match && match.date} zip={match && match.zip} />
-                        </div>
-                    </div>
-                    {user && match && (user.email !== match.host.email) && (<button onClick={handleJoin}>Join</button>)}
-                    <div className="btn-group">
-                        {user && match && (user.email === match.host.email) && (
-                            <div>
-                                <button onClick={handleUpdate}>Update</button>
-                                <button onClick={handleDelete}>Delete</button>
+        <div className="MD-container">
+            <Navbar />
+            <div className="row m-4">
+                <div className="col-8">
+                    {/* <img src="../assets/images" /> */}
+                    <div className="row">
+                        <div className="col-8">
+                            <div className="card mb-4">
+                                <div className="card-body">
+                                    {match && (<h5> {match.title}</h5>)}
+                                    {match && match.host && (<p className="text-muted"> Hosted by: {match.host.email}</p>)}
+                                    {match && (<p>Date: {match.date}</p>)}
+                                    {match && (<p>Time: {match.time}</p>)}
+                                    {match && (<p>Duration: {match.duration} mins</p>)}
+                                    {match && (<p>Players: {match.currentPlayers}/{match && match.maxPlayers}</p>)}
+                                    {match && (<p>Address: {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
+                                    {user && match && (user.email !== match.host.email) && (<button onClick={handleJoin}>Join</button>)}
+                                    <div className="btn-group">
+                                        {user && match && (user.email === match.host.email) && (
+                                            <div>
+                                                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                                                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
-                        )}
+                        </div>
+                        <div className="col-4">
+                            <div className='card mb-4'>
+                                <div className=" card-body weather-info">
+                                    <Weather date={match && match.date} zip={match && match.zip} />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+
                 </div>
-                <div className="left-side">
-                    Players:
-                    <p>Player 1</p>
-                    <p>Player 2</p>
+                <div className="col-4">
+                    <div className="card mb-4">
+                        <div className='card-body'>
+                            <h5 className="card-title">Players:</h5>
+                            <p>Player #1</p>
+                            <p>Player #2</p>
+                            {match && match.players && ( match.players.map((player) => {
+                                <p>{player.email}</p>
+                            }))}
+
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../styles/Weather.css';
+// import '../styles/Weather.css';
 
 function Weather({ date, zip}) {
     const [temp, setTemp] = useState('65');
@@ -25,9 +25,10 @@ function Weather({ date, zip}) {
  
     return (
         <div className='weather-container'>
-            <p>temp: {temp}F</p>
-            <p>hum: {humidity}%</p>
-            <p>cond: {condition}</p>
+            <h4 className='card-title'>Weather</h4>
+            <p>temperature: {temp}F</p>
+            <p>humidity: {humidity}%</p>
+            <p>condition: {condition}</p>
         </div>
     );
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
+import Navbar from '../components/Navbar'
+
 
 function HostMatch() {
     const { dispatch } = useMatchesContext();
@@ -24,19 +26,19 @@ function HostMatch() {
 
         if (!user) {
             setError('You must be logged in!');
-            return 
+            return
         }
 
         const host = user.userId;
         const players = [user.userId];
 
-        const match = { 
-            title, 
-            maxPlayers, 
-            time, 
-            date, 
-            duration, 
-            address, 
+        const match = {
+            title,
+            maxPlayers,
+            time,
+            date,
+            duration,
+            address,
             city,
             state,
             zip,
@@ -71,76 +73,127 @@ function HostMatch() {
     }
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <form onSubmit={handleSubmit}>
-                    <h3>Host a Match</h3>
-                    <label>Title: </label>
-                    <input
-                        type='text'
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                    />
+        <div className="host-container">
+            <Navbar />
+            <div className="row">
+                <h3 className="text-center m-3">Host a Match</h3>
+                <div className="col-6 offset-3">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Title: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='text'
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={title}
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Maximum Players: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='number'
+                                    onChange={(e) => setMaxPlayers(e.target.value)}
+                                    value={maxPlayers}
+                                />
+                            </div>
+                        </div>
 
-                    <label>Maximum Players: </label>
-                    <input
-                        type='number'
-                        onChange={(e) => setMaxPlayers(e.target.value)}
-                        value={maxPlayers}
-                    />
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Time: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='time'
+                                    onChange={(e) => setTime(e.target.value)}
+                                    value={time}
+                                />
+                            </div>
+                        </div>
 
-                    <label>Time: </label>
-                    <input
-                        type='time'
-                        onChange={(e) => setTime(e.target.value)}
-                        value={time}
-                    />
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Duration: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='number'
+                                    onChange={(e) => setDuration(e.target.value)}
+                                    value={duration}
+                                />
+                            </div>
+                        </div>
 
-                    <label>Duration: </label>
-                    <input
-                        type='number'
-                        onChange={(e) => setDuration(e.target.value)}
-                        value={duration}
-                    />
-                    <label>Date: </label>
-                    <input
-                        type='date'
-                        onChange={(e) => setDate(e.target.value)}
-                        value={date}
-                    />
-                    <label>Address: </label>
-                    <input
-                        type='text'
-                        onChange={(e) => setAddress(e.target.value)}
-                        value={address}
-                    />
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Date: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='date'
+                                    onChange={(e) => setDate(e.target.value)}
+                                    value={date}
+                                />
+                            </div>
+                        </div>
 
-                    <label>City: </label>
-                    <input
-                        type='text'
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
-                    />
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">Address: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='text'
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    value={address}
+                                />
+                            </div>
+                        </div>
 
-                    <label>State: </label>
-                    <input
-                        type='text'
-                        onChange={(e) => setState(e.target.value)}
-                        value={state}
-                    />
-                    <label>ZIP Code: </label>
-                    <input
-                        type='number'
-                        onChange={(e) => setZip(e.target.value)}
-                        value={zip}
-                    />
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">City: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='text'
+                                    onChange={(e) => setCity(e.target.value)}
+                                    value={city}
+                                />
+                            </div>
+                        </div>
 
-                    <button>Host Match</button>
-                    <button>Cancel</button>
-                    {error && <div className="error">{error}</div>}
-                </form>
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">State: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='text'
+                                    onChange={(e) => setState(e.target.value)}
+                                    value={state}
+                                />
+                            </div>
+                        </div>
 
-            </header >
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-2 col-form-label col-form-label">ZIP code: </label>
+                            <div className="col-sm-10">
+                                <input
+                                    className="form-control"
+                                    type='number'
+                            onChange={(e) => setZip(e.target.value)}
+                            value={zip}
+                                />
+                            </div>
+                        </div>
+                        <button className="btn btn-primary">Host Match</button>
+                        <button className="btn btn-danger">Cancel</button>
+                        {error && <div className="error text-danger">{error}</div>}
+                    </form>
+                </div>
+
+
+
+            </div >
         </div >
     );
 }

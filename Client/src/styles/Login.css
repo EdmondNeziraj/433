@@ -1,0 +1,70 @@
+.background {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+    font-family: sans-serif;
+    background-image: url("../../assets/images/wallpaper1.jpg");
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: cover;
+    color: white;
+}
+
+.welcome {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    width: 400px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px #333;
+}
+
+.login-header {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.login-header h1 {
+    color: #333;
+    font-size: 40px;
+    margin-bottom: 80px;
+}
+
+.login-main {
+    text-align: center;
+}
+
+.login-main input, button {
+    width: 300px;
+    height: 40px;
+    padding: 0 10px;
+    border: none; 
+    outline: none;
+    box-sizing: border-box;
+    font-size: 15px;
+    columns: #333;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px #333;
+}
+
+.w-btn, .w-btn a {
+    width: 250px;
+    font-size: 16px;
+    color: black;
+    text-decoration: none;
+    
+}
+
+a {
+    color: white;
+}
