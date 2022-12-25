@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-// import '../styles/Weather.css';
+import '../styles/Weather.css';
+import sunny from '../sunny.jpg';
+import rainy from '../rainy.jpg'
 
 function Weather({ date, zip}) {
-    const [temp, setTemp] = useState('65');
+    const [temp, setTemp] = useState('60');
     const [humidity, setHumidity] = useState('70');
     const [condition, setCondition] = useState('Sunny')
 
@@ -20,11 +22,12 @@ function Weather({ date, zip}) {
         }
 
         fetchWeather();
-    }, [])
+    }, []) 
 
+    console.log(date, zip, temp, humidity, condition); 
  
     return (
-        <div className='weather-container'>
+        <div className='weather-container' style={{backgroundImage:`url(${rainy})`}}>
             <h4 className='card-title'>Weather</h4>
             <p>temperature: {temp}F</p>
             <p>humidity: {humidity}%</p>

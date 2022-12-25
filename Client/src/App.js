@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { useMatchesContext } from './hooks/useMatchesContext';
 import { useAuthContext } from './hooks/useAuthContext';
+import Splash from './pages/Splash';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/matches/:id/edit" element={<EditMatch matches={matches} />} />
           <Route path='/login' element={!user ? <Login /> : <Navigate to='/matches' />} />
           <Route path='/signup' element={!user ? <Signup /> : <Navigate to='/matches' />} />
+          <Route path='*' element={<Splash/>} />
         </Routes>
       </Router>
     </div>

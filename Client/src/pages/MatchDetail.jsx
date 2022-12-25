@@ -4,8 +4,6 @@ import Weather from "../components/Weather";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
 import Navbar from '../components/Navbar'
-
-
 import '../styles/MatchDetail.css'
 
 function MatchDetail({ matches }) {
@@ -13,11 +11,20 @@ function MatchDetail({ matches }) {
     const { dispatch } = useMatchesContext();
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
+    const [isJoined, setIsJoined] = useState(false);
     let navigate = useNavigate();
 
     const match = matches && matches.filter((match) => match._id === id)[0];
 
-    // console.log('printing match',match.players[1].email);
+    useEffect(() => {
+        if (user && match) {
+            for (let i = 0; i < match.players.length; i++) {
+                if (user.email === match.players[i].email) {
+                    setIsJoined(true);
+                }
+            }
+        }
+    })
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -31,6 +38,7 @@ function MatchDetail({ matches }) {
             return
         }
 
+        // send the delete request to the server
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'DELETE',
             headers: {
@@ -44,9 +52,7 @@ function MatchDetail({ matches }) {
             setError(json.error)
         }
         if (response.ok) {
-            // setLocation('');
-            // setTime('');
-            // setError(null);
+            setError(null);
             navigate('/matches');
             console.log('match deleted', json);
             dispatch({ type: 'DELETE_MATCH', payload: json })
@@ -64,13 +70,14 @@ function MatchDetail({ matches }) {
         const matchToUpdate = match;
 
         if (match) {
-            console.log(match.currentPlayers, user.userId);
-
+            // increment the currentPlayers count
             matchToUpdate.currentPlayers = match.currentPlayers + 1;
+
+            // add the player in the players array
             matchToUpdate.players = [...match.players, user.userId];
         }
 
-
+        // send the patch request to the server
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(matchToUpdate),
@@ -80,7 +87,59 @@ function MatchDetail({ matches }) {
             }
         })
 
-        console.log('user token: ', user.token)
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error)
+        }
+        if (response.ok) {
+            setError(null);
+            setIsJoined(true)
+            navigate(`/matches/${json._id}`);
+            console.log('match updated', matchToUpdate);
+            dispatch({ type: 'UPDATE_MATCH', payload: matchToUpdate })
+        }
+    }
+
+    const handleLeave = async (e) => {
+        e.preventDefault();
+
+        if (!user) {
+            setError('You must be logged in!');
+            return
+        }
+
+        const matchToUpdate = match;
+
+        if (match) {
+            console.log(match.currentPlayers, user.userId);
+
+            // find the index of the player to remove in the array
+            let index;
+            for ( let i = 0; i < match.players.length; i++ ) {
+                if (match.players[i]._id === user.userId ) {
+                    index = i;
+                }
+            }
+
+            // remove players from the array
+            if (index > -1) {
+                match.players.splice(index, 1);
+            }
+
+            // update the currentPlayers count
+            matchToUpdate.currentPlayers = match.currentPlayers - 1;
+        }
+
+        // send the patch request to teh server
+        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(matchToUpdate),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
 
         const json = await response.json();
 
@@ -88,8 +147,8 @@ function MatchDetail({ matches }) {
             setError(json.error)
         }
         if (response.ok) {
-            // setTime('');
             setError(null);
+            setIsJoined(false)
             navigate(`/matches/${json._id}`);
             console.log('match updated', matchToUpdate);
             dispatch({ type: 'UPDATE_MATCH', payload: matchToUpdate })
@@ -103,7 +162,7 @@ function MatchDetail({ matches }) {
                 <div className="col-8">
                     {/* <img src="../assets/images" /> */}
                     <div className="row">
-                        <div className="col-8">
+                        <div className="col-7">
                             <div className="card mb-4">
                                 <div className="card-body">
                                     {match && (<h5> {match.title}</h5>)}
@@ -113,7 +172,7 @@ function MatchDetail({ matches }) {
                                     {match && (<p>Duration: {match.duration} mins</p>)}
                                     {match && (<p>Players: {match.currentPlayers}/{match && match.maxPlayers}</p>)}
                                     {match && (<p>Address: {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
-                                    {user && match && (user.email !== match.host.email) && (<button onClick={handleJoin}>Join</button>)}
+                                    {user && match && (user.email !== match.host.email) && isJoined ? <button onClick={handleLeave}>Leave</button> : <button onClick={handleJoin}>Join</button>}
                                     <div className="btn-group">
                                         {user && match && (user.email === match.host.email) && (
                                             <div>
@@ -125,7 +184,7 @@ function MatchDetail({ matches }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-5">
                             <div className='card mb-4'>
                                 <div className=" card-body weather-info">
                                     <Weather date={match && match.date} zip={match && match.zip} />
@@ -134,18 +193,15 @@ function MatchDetail({ matches }) {
                         </div>
 
                     </div>
-
-
                 </div>
                 <div className="col-4">
                     <div className="card mb-4">
                         <div className='card-body'>
                             <h5 className="card-title">Players:</h5>
-                            <p>Player #1</p>
-                            <p>Player #2</p>
-                            {match && match.players && ( match.players.map((player) => {
-                                <p>{player.email}</p>
-                            }))}
+
+                            {match && match.players && match.players.map((player) => {
+                                return <p key={player._id}>{player.email}</p>
+                            })}
 
                         </div>
 
