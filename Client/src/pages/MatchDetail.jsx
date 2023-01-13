@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
 import Navbar from '../components/Navbar';
 import '../styles/MatchDetail.css';
+import calendar from '../assets/icons/calendar.svg'
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
@@ -160,22 +161,21 @@ function MatchDetail({ matches }) {
         <div className="MD-container">
             <Navbar />
             <div className="row m-4">
-                <div className="col-8">
-                    {/* <img src="../assets/images" /> */}
+                <div className="col-10 offset-1">
                     <div className="row">
-                        <div className="col-7">
-                            {/* <div className="card mb-4"> */}
-                                {/* <div className="card-body"> */}
-                                    {match && (<h5> {match.title}</h5>)}
+                        <div className="col-8">
+                            <div className="row details">
+                                <div className="col-6 offset-1">
+                                    {match && (<h4> {match.title}</h4>)}
                                     {match && match.host && (<p className="text-muted"> Hosted by: {match.host.email}</p>)}
-                                    {match && (<p>Date: {match.date}</p>)}
-                                    {match && (<p>Time: {match.time}</p>)}
-                                    {match && (<p>Duration: {match.duration} mins</p>)}
-                                    {match && (<p>Players: {match.currentPlayers}/{match && match.maxPlayers}</p>)}
-                                    {match && (<p>Address: {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
-                                    {!user && <button><a href="/login">Log in to join match</a></button>}
-                                    {user && match && (user.email !== match.host.email) && isJoined && <button onClick={handleLeave}>Leave</button>}
-                                    {user && match && (user.email !== match.host.email) && !isJoined && <button onClick={handleJoin}>Join</button>}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/calendar.svg').default} alt='calendar' /> {match.date} @ {match.time}</p>)}
+                                    {/* {match && (<p>Time: {match.time}</p>)} */}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/clock.svg').default} alt='clock' /> {match.duration} mins</p>)}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/user.svg').default} alt='user' /> {match.currentPlayers}/{match && match.maxPlayers}</p>)}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
+                                    {!user && <button className="btn" ><a href="/login">Log in to join match</a></button>}
+                                    {user && match && (user.email !== match.host.email) && isJoined && <button className="btn" onClick={handleLeave}>Leave</button>}
+                                    {user && match && (user.email !== match.host.email) && !isJoined && <button className="btn" onClick={handleJoin}>Join</button>}
                                     <div className="btn-group">
                                         {user && match && (user.email === match.host.email) && (
                                             <div>
@@ -184,31 +184,38 @@ function MatchDetail({ matches }) {
                                             </div>
                                         )}
                                     </div>
-                                {/* </div> */}
-                            {/* </div> */}
-                        </div>
-                        <div className="col-5">
-                            {/* <div className='card mb-4'> */}
-                                {/* <div className=" card-body weather-info"> */}
+                                </div>
+                                <div className="col-4">
                                     <Weather date={match && match.date} zip={match && match.zip} />
-                                {/* </div> */}
-                            {/* </div> */}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-10 offset-1">
+                                    <h5>Additional Details</h5>
+                                    <p>Please arrive at least 10 minutes before the match start time.</p>
+                                    <p>This field is turf so you can wear whatever shoes you want,
+                                        but if you wear cleats, please no metal studs. Shin guards are optional.
+                                    </p>
+                                    <p>The entrance of the park is on the corner of middletown road and stadium avenue.
+                                        There is a parking lot inside the park, however, sometimes it is full and you might
+                                        have to park in the streets outside of the parking lot.
+                                    </p>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className="col-4">
-                    <div className="card mb-4">
-                        <div className='card-body'>
-                            <h5 className="card-title">Players:</h5>
+                        <div className="col-4">
+                            <h5 className="card-title mb-2">Players:</h5>
 
                             {match && match.players && match.players.map((player) => {
                                 return <p key={player._id}>{player.username ? player.username : player.email}</p>
                             })}
-
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
     );
 }

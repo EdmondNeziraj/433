@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/Weather.css';
 import sunny from '../sunny.jpg';
-import rainy from '../rainy.jpg'
+import rainy from '../assets/images/weather/rainy.jpg'
 
 function Weather({ date, zip}) {
     const [temp, setTemp] = useState('60');
@@ -12,7 +12,7 @@ function Weather({ date, zip}) {
     useEffect(() => {
         const fetchWeather = async () => {
 
-            const data = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=3269e5b1c838479f82a51845221712&q=${zip}&dt=2023-01-13`)
+            const data = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=3269e5b1c838479f82a51845221712&q=${zip}&dt=${date}`)
             const json = await data.json();
 
             const day = json.forecast.forecastday[0].day;

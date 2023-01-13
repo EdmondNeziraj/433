@@ -18,6 +18,11 @@
     border: 1px solid red;
 }
 
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
 .match-info {
     width: 200px;
     border: 1px solid red;
@@ -29,9 +34,14 @@
     justify-content: center;
 }
 
+.btn {
+    width: 200px;
+    background-color: rgb(37, 83, 83);
+}
+
 button > a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 /* img {
@@ -39,3 +49,7 @@ button > a {
     height: 300px;
     border: 1px solid red;
 } */
+
+.icon {
+    width: 25px;
+}
