@@ -4,6 +4,11 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 
 const UserSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     email: {
         type: String,
         required: true,
@@ -12,15 +17,14 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true,
-        unique: true
     }
 });
 
 // static signup method
-UserSchema.statics.signup = async function (email, password) {
+UserSchema.statics.signup = async function (username, email, password) {
     
     // validation
-    if (!email || !password) {
+    if (!username || !email || !password) {
         throw Error('All fields must be filled!');
     }
 
@@ -28,16 +32,20 @@ UserSchema.statics.signup = async function (email, password) {
         throw Error('Email is not valid!');
     }
 
-    const exists = await this.findOne({ email });
+    const usernameExists = await this.findOne({ username });
+    const emailExists = await this.findOne({ email });
 
-    if (exists) {
+    if (usernameExists) {
+        throw Error('Username already in use! Try another username!');
+    }
+    if (emailExists) {
         throw Error('Email already in use!');
     }
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await this.create({ email, password: hash });
+    const user = await this.create({ username, email, password: hash });
 
     return user;
 }

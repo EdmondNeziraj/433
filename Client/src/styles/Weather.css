@@ -1,11 +1,13 @@
 .weather-container {
-    width: 150px;
-    height: 200px;
-    border: 1px solid red;
+    width: 200px;
+    height: 250px;
+    padding: 10px;
+    /* border: 1px solid red; */
     /* background-image: url("../sunny.jpg"); */
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     overflow: hidden;
     background-size: cover;
     background-position: center;
     color: white;
+    border-radius: 10px;
 }

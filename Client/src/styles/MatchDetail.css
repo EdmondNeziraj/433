@@ -29,6 +29,10 @@
     justify-content: center;
 }
 
+button > a {
+    text-decoration: none;
+    color: black;
+}
 
 /* img {
     width: 400px;

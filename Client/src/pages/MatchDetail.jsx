@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Weather from "../components/Weather";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
-import Navbar from '../components/Navbar'
-import '../styles/MatchDetail.css'
+import Navbar from '../components/Navbar';
+import '../styles/MatchDetail.css';
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
@@ -35,6 +35,7 @@ function MatchDetail({ matches }) {
         e.preventDefault();
 
         if (!user) {
+            setError('You must be logged in!');
             return
         }
 
@@ -116,8 +117,8 @@ function MatchDetail({ matches }) {
 
             // find the index of the player to remove in the array
             let index;
-            for ( let i = 0; i < match.players.length; i++ ) {
-                if (match.players[i]._id === user.userId ) {
+            for (let i = 0; i < match.players.length; i++) {
+                if (match.players[i]._id === user.userId) {
                     index = i;
                 }
             }
@@ -163,8 +164,8 @@ function MatchDetail({ matches }) {
                     {/* <img src="../assets/images" /> */}
                     <div className="row">
                         <div className="col-7">
-                            <div className="card mb-4">
-                                <div className="card-body">
+                            {/* <div className="card mb-4"> */}
+                                {/* <div className="card-body"> */}
                                     {match && (<h5> {match.title}</h5>)}
                                     {match && match.host && (<p className="text-muted"> Hosted by: {match.host.email}</p>)}
                                     {match && (<p>Date: {match.date}</p>)}
@@ -172,7 +173,9 @@ function MatchDetail({ matches }) {
                                     {match && (<p>Duration: {match.duration} mins</p>)}
                                     {match && (<p>Players: {match.currentPlayers}/{match && match.maxPlayers}</p>)}
                                     {match && (<p>Address: {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
-                                    {user && match && (user.email !== match.host.email) && isJoined ? <button onClick={handleLeave}>Leave</button> : <button onClick={handleJoin}>Join</button>}
+                                    {!user && <button><a href="/login">Log in to join match</a></button>}
+                                    {user && match && (user.email !== match.host.email) && isJoined && <button onClick={handleLeave}>Leave</button>}
+                                    {user && match && (user.email !== match.host.email) && !isJoined && <button onClick={handleJoin}>Join</button>}
                                     <div className="btn-group">
                                         {user && match && (user.email === match.host.email) && (
                                             <div>
@@ -181,17 +184,16 @@ function MatchDetail({ matches }) {
                                             </div>
                                         )}
                                     </div>
-                                </div>
-                            </div>
+                                {/* </div> */}
+                            {/* </div> */}
                         </div>
                         <div className="col-5">
-                            <div className='card mb-4'>
-                                <div className=" card-body weather-info">
+                            {/* <div className='card mb-4'> */}
+                                {/* <div className=" card-body weather-info"> */}
                                     <Weather date={match && match.date} zip={match && match.zip} />
-                                </div>
-                            </div>
+                                {/* </div> */}
+                            {/* </div> */}
                         </div>
-
                     </div>
                 </div>
                 <div className="col-4">
@@ -200,14 +202,11 @@ function MatchDetail({ matches }) {
                             <h5 className="card-title">Players:</h5>
 
                             {match && match.players && match.players.map((player) => {
-                                return <p key={player._id}>{player.email}</p>
+                                return <p key={player._id}>{player.username ? player.username : player.email}</p>
                             })}
 
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>

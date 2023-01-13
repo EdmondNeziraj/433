@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSignup } from '../hooks/useSignup';
 
 const Signup = () => {
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { signup, error, isLoading } = useSignup();
@@ -10,7 +11,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await signup(email, password)
+        await signup(username, email, password)
     }
 
     return (
@@ -29,6 +30,12 @@ const Signup = () => {
                 </div>
                 <div className='login-main'>
                     <form className="signup" onSubmit={handleSubmit}>
+                        <input
+                            placeholder='Username'
+                            type='text'
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                        />
                         <input
                             placeholder='Email'
                             type='email'

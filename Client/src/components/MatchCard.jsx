@@ -10,7 +10,7 @@ function MatchCard({ match }) {
                 <img className='img-fluid' src="../../assets/images/wallpaper4.jpg" alt=''></img>
                 <div className='col-md-8'>
                     <div className="card-body">
-                        <Link to={`/matches/${match._id}`} className='item'><h5 className='card-title'>{match.title}</h5></Link>
+                        {/* <Link to={`/matches/${match._id}`} className='item'><h5 className='card-title'>{match.title}</h5></Link> */}
                         <h4 className='card-title'>{match.title}</h4>
                         <p>{match.date} at {match.time}</p>
                         <p className='text-muted'>{match.duration} mins</p>

@@ -44,8 +44,8 @@ const Login = (props) => {
                         />
                         <button disabled={isLoading}>Log in</button>
                         <p>Don't have an account? <a href='/signup'>Sign up</a></p>
-                        {error && <div className='error'>{error}</div>}
-                        {props.error && <div className='error'>{props.error}</div>}
+                        {error && <div className='error text-danger'>{error}</div>}
+                        {props.error && <div className='error text-danger'>{props.error}</div>}
                     </form>
                 </div>
             </div>
