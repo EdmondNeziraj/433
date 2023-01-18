@@ -30,12 +30,11 @@ function Weather({ date, zip}) {
  
     return (
         <div className='weather-container' style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(${rainy})`}}>
-        {/* // <div className='weather-container'> */}
             <h4 className='card-title'>Weather</h4>
-            <p>temperature: {temp}F</p>
-            <p>humidity: {humidity}%</p>
-            <p>condition: {condition}</p>
-            <p><img src={image} alt="" /></p>
+            <p>Temperature: {temp}F</p>
+            <p>Humidity: {humidity}%</p>
+            <p>Condition: {condition}</p>
+            <div className='weather-icon'><img src={image} alt="" /></div>
         </div>
     );
 }

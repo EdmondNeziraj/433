@@ -9,13 +9,15 @@ function Matches({ matches }) {
             <Navbar />
             <div className="matches-main">
                 <h2>All matches:</h2>
-                <ul>
+                <div className="row match-card-container">
                     {matches && matches.map((match) => (
-                        <MatchCard
-                            key={match._id} 
-                            match={match} />
+                        <div className="col-4">
+                            <MatchCard
+                                key={match._id}
+                                match={match} />
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
         </div>
     );

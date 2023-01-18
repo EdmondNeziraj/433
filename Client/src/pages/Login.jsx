@@ -18,16 +18,14 @@ const Login = (props) => {
         <div className='background'>
             <div className='welcome'>
                 <h1>Welcome</h1>
-                <p>4-3-3 is a platform to schedule and organize pick up soccer games</p>
+                <h5><span>4-3-3</span> is a platform to schedule and organize pick up soccer games</h5>
                 {/* <Link to='/matches's className='item'>Browse Matches</Link> */}
-                <button className='w-btn'><a href='/matches'>Browse Matches</a></button>
+                <a className='home-btn home-btn-link' href='/matches'>Browse Matches</a>
 
             </div>
 
             <div className='login-container'>
-                <div className='login-header'>
-                    <h3>Log in</h3>
-                </div>
+                <h3 className='login-container__title'>Log in</h3>
                 <div className='login-main'>
                     <form className="login" onSubmit={handleSubmit}>
                         <input
@@ -42,8 +40,8 @@ const Login = (props) => {
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
                         />
-                        <button disabled={isLoading}>Log in</button>
-                        <p>Don't have an account? <a href='/signup'>Sign up</a></p>
+                        <button className='home-btn' disabled={isLoading}>Log in</button>
+                        <p className='account-text'>Don't have an account? <a href='/signup'>Sign up</a></p>
                         {error && <div className='error text-danger'>{error}</div>}
                         {props.error && <div className='error text-danger'>{props.error}</div>}
                     </form>

@@ -5,8 +5,8 @@
     width: 100vw;
     height: 100vh;
     font-family: sans-serif;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
-    url("../../assets/images/wallpaper1.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+        url("../assets/images/wallpaper1.jpg");
     background-repeat: no-repeat;
     overflow: hidden;
     background-size: cover;
@@ -21,23 +21,29 @@
     align-items: center;
 }
 
+.welcome h5 {
+    max-width: 450px;
+    text-align: center;
+    margin-bottom: 16px;
+} 
+
+.welcome h5 span {
+    font-weight: bold;
+    font-size: 24px;
+}
+
 .login-container {
     width: 400px;
     margin: auto;
     border-radius: 10px;
-    background-color: rgba(0,0,0,0.55);
+    background-color: rgba(0, 0, 0, 0.55);
     box-shadow: 0 0 10px #333;
-}
-
-.login-header {
+    padding: 24px;
     text-align: center;
-    margin-top: 10px;
 }
 
-.login-header h1 {
-    color: #333;
-    font-size: 40px;
-    margin-bottom: 80px;
+.login-container__title {
+    margin-bottom: 24px;
 }
 
 .login-main {
@@ -45,28 +51,40 @@
     margin: 4px;
 }
 
-.login-main input, button {
+.login-main input {
     width: 300px;
-    height: 40px;
-    padding: 0 10px;
-    border: none; 
+    min-height: 32px;
+    padding: 10px 12px;
+    border: none;
     outline: none;
     box-sizing: border-box;
-    font-size: 15px;
+    font-size: 16px;
     columns: #333;
-    margin-bottom: 40px;
-    border-radius: 10px;
+    margin-bottom: 24px;
+    border-radius: 12px;
     box-shadow: 2px 2px 5px #333;
 }
 
-.w-btn, .w-btn a {
-    width: 250px;
+.home-btn {
+    width: 300px;
     font-size: 16px;
     color: black;
-    text-decoration: none;
-    
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 12px;
+    min-height: 44px;
+    box-shadow: 2px 2px 5px #333;
+    line-height: 24px;
+    border: none;
+    outline: none;
 }
 
-a {
-    color: white;
+.home-btn-link {
+    width: 250px;
+    background-color: #fff;
+    text-decoration: none;
+}
+
+.account-text {
+    margin-top: 8px;
 }

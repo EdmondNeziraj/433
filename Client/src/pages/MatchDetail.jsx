@@ -164,12 +164,11 @@ function MatchDetail({ matches }) {
                 <div className="col-10 offset-1">
                     <div className="row">
                         <div className="col-8">
-                            <div className="row details">
-                                <div className="col-6 offset-1">
+                            <div className="row match-details">
+                                <div className="col-7 match-info">
                                     {match && (<h4> {match.title}</h4>)}
                                     {match && match.host && (<p className="text-muted"> Hosted by: {match.host.email}</p>)}
-                                    {match && (<p><img className='icon' src={require('../assets/icons/calendar.svg').default} alt='calendar' /> {match.date} @ {match.time}</p>)}
-                                    {/* {match && (<p>Time: {match.time}</p>)} */}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/calendar.svg').default} alt='calendar' /> {match.date} at {match.time}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/clock.svg').default} alt='clock' /> {match.duration} mins</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/user.svg').default} alt='user' /> {match.currentPlayers}/{match && match.maxPlayers}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
@@ -185,12 +184,19 @@ function MatchDetail({ matches }) {
                                         )}
                                     </div>
                                 </div>
-                                <div className="col-4">
-                                    <Weather date={match && match.date} zip={match && match.zip} />
+                                <div className="col-5 players-container">
+                                    <h5 className="card-title mb-2">Players</h5>
+
+                                    <div className="players-items">
+                                        {match && match.players && match.players.map((player) => {
+                                            return <p key={player._id}>{player.username ? player.username : player.email}</p>
+                                        })}
+                                    </div>
                                 </div>
+
                             </div>
-                            <div className="row">
-                                <div className="col-10 offset-1">
+                            <div className="row additional-details">
+                                {/* <div className="col-12"> */}
                                     <h5>Additional Details</h5>
                                     <p>Please arrive at least 10 minutes before the match start time.</p>
                                     <p>This field is turf so you can wear whatever shoes you want,
@@ -200,17 +206,14 @@ function MatchDetail({ matches }) {
                                         There is a parking lot inside the park, however, sometimes it is full and you might
                                         have to park in the streets outside of the parking lot.
                                     </p>
-                                </div>
-
+                                {/* </div> */}
                             </div>
+
                         </div>
                         <div className="col-4">
-                            <h5 className="card-title mb-2">Players:</h5>
-
-                            {match && match.players && match.players.map((player) => {
-                                return <p key={player._id}>{player.username ? player.username : player.email}</p>
-                            })}
+                            <Weather date={match && match.date} zip={match && match.zip} />
                         </div>
+
                     </div>
 
                 </div>

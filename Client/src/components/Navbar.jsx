@@ -17,14 +17,16 @@ function Navbar() {
         <div className='navbar'>
             <div className='nav-items'>
                 <Link to='/' className='logo'>4-3-3</Link>
-                <Link to='/matches' className='item'>Matches</Link>
-                <Link to='/host' className='item'>Host a Match</Link>
+                <div className="nav-actions">
+                    <Link to='/matches' className='item'>Matches</Link>
+                    <Link to='/host' className='item'>Host a match</Link>
+                </div>
             </div>
             <nav>
                 {user && (
                     <div>
-                        <span>{user.email}</span>
-                        <button onClick={handleClick}>Log out</button>
+                        <span className='email'>{user.email}</span>
+                        <Link to='/' onClick={handleClick}>Log out</Link>
                     </div>
                 )}
 
