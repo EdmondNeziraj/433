@@ -10,10 +10,9 @@ function Matches({ matches }) {
             <div className="matches-main">
                 <h2>All matches:</h2>
                 <div className="row match-card-container">
-                    {matches && matches.map((match) => (
-                        <div className="col-4">
+                    {matches && matches.map((match, index) => (
+                        <div className="col-4" key={index}>
                             <MatchCard
-                                key={match._id}
                                 match={match} />
                         </div>
                     ))}

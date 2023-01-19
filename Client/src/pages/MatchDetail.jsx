@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
-import Weather from "../components/Weather";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
 import Navbar from '../components/Navbar';
+import Weather from "../components/Weather";
 import '../styles/MatchDetail.css';
-import calendar from '../assets/icons/calendar.svg'
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
@@ -163,6 +162,7 @@ function MatchDetail({ matches }) {
             <div className="row m-4">
                 <div className="col-10 offset-1">
                     <div className="row">
+                        {error && (<div>{error}</div>)}
                         <div className="col-8">
                             <div className="row match-details">
                                 <div className="col-7 match-info">
@@ -172,17 +172,16 @@ function MatchDetail({ matches }) {
                                     {match && (<p><img className='icon' src={require('../assets/icons/clock.svg').default} alt='clock' /> {match.duration} mins</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/user.svg').default} alt='user' /> {match.currentPlayers}/{match && match.maxPlayers}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
-                                    {!user && <button className="btn" ><a href="/login">Log in to join match</a></button>}
-                                    {user && match && (user.email !== match.host.email) && isJoined && <button className="btn" onClick={handleLeave}>Leave</button>}
-                                    {user && match && (user.email !== match.host.email) && !isJoined && <button className="btn" onClick={handleJoin}>Join</button>}
-                                    <div className="btn-group">
-                                        {user && match && (user.email === match.host.email) && (
-                                            <div>
-                                                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
-                                                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
-                                            </div>
-                                        )}
-                                    </div>
+                                    {!user && <button className="details-btn" ><a href="/login">Log in to join match</a></button>}
+                                    {user && match && (user.email !== match.host.email) && isJoined && <button className="details-btn" onClick={handleLeave}>Leave</button>}
+                                    {user && match && (user.email !== match.host.email) && !isJoined && <button className="details-btn" onClick={handleJoin}>Join</button>}
+                                    {user && match && (user.email === match.host.email) && (
+                                        <div className="edit-btns">
+                                            <button className="edit-btn update-btn" onClick={handleUpdate}>Update</button>
+                                            <button className="edit-btn delete-btn" onClick={handleDelete}>Delete</button>
+                                        </div>
+                                    )}
+
                                 </div>
                                 <div className="col-5 players-container">
                                     <h5 className="card-title mb-2">Players</h5>
@@ -197,15 +196,15 @@ function MatchDetail({ matches }) {
                             </div>
                             <div className="row additional-details">
                                 {/* <div className="col-12"> */}
-                                    <h5>Additional Details</h5>
-                                    <p>Please arrive at least 10 minutes before the match start time.</p>
-                                    <p>This field is turf so you can wear whatever shoes you want,
-                                        but if you wear cleats, please no metal studs. Shin guards are optional.
-                                    </p>
-                                    <p>The entrance of the park is on the corner of middletown road and stadium avenue.
-                                        There is a parking lot inside the park, however, sometimes it is full and you might
-                                        have to park in the streets outside of the parking lot.
-                                    </p>
+                                <h5>Additional Details</h5>
+                                <p>Please arrive at least 10 minutes before the match start time.</p>
+                                <p>This field is turf so you can wear whatever shoes you want,
+                                    but if you wear cleats, please no metal studs. Shin guards are optional.
+                                </p>
+                                <p>The entrance of the park is on the corner of middletown road and stadium avenue.
+                                    There is a parking lot inside the park, however, sometimes it is full and you might
+                                    have to park in the streets outside of the parking lot.
+                                </p>
                                 {/* </div> */}
                             </div>
 
@@ -213,12 +212,9 @@ function MatchDetail({ matches }) {
                         <div className="col-4">
                             <Weather date={match && match.date} zip={match && match.zip} />
                         </div>
-
                     </div>
-
                 </div>
             </div>
-
         </div>
     );
 }

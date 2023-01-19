@@ -1,22 +1,15 @@
-.container {
-    display: flex;
-    border: 1px solid red;
-
-}
-
 .match-details {
-    height: 340px;
-    padding-bottom: 24px;
+    max-height: 440px;
 }
 
 .match-info {
     height: 100%;
-    /* border: 1px solid red; */
+    margin-bottom: 10px;
+    border-right: 1px solid #eee;
 }
 
 .players-container {
     height: 100%;
-    border-left: 1px solid #eee;
     padding-left: 24px;
 }
 
@@ -25,19 +18,68 @@
     overflow: auto;
 }
 
-.btn-group {
-    display: inline-block;
-    /* flex-direction: column;
-    justify-content: center; */
-}
-
-.btn {
+.details-btn {
     width: 100%;
     background-color: rgb(37, 83, 83);
+    text-align: center;
+    padding: 8px;
+    border-radius: 12px;
+    transition: 0.3s;
+    color: white;
+    border: none;
+}
+
+@media screen and (min-width: 960px) {
+    .details-btn {
+        width: 50%;
+    }
+}
+
+.details-btn a {
     text-decoration: none;
     color: white;
 }
 
+.details-btn:hover {
+    background-color: rgb(37, 83, 83);
+    color: white;
+    opacity: 0.9;
+}
+
+.edit-btns {
+    display: flex;
+}
+
+@media screen and (max-width: 960px) {
+    .edit-btns {
+        flex-direction: column;
+    }
+}
+
+.edit-btn {
+    text-align: center;
+    padding: 8px;
+    border-radius: 12px;
+    transition: 0.3s;
+    color: white;
+    border: none;
+    margin: 1px;
+}
+
+.edit-btn:hover {
+    opacity: 0.9;
+}
+
+.update-btn {
+    flex-grow: 1;
+    background-color: rgb(30, 30, 238);
+}
+
+.delete-btn {
+    flex-grow: 1;
+    background-color: rgb(212, 30, 30);
+}
+
 .additional-details {
-    padding: 10px 0px;
+    padding: 12px 0px;
 }

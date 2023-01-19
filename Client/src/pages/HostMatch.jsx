@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
 import Navbar from '../components/Navbar'
+import '../styles/HostMatch.css'
 
 
 function HostMatch() {
@@ -18,6 +19,7 @@ function HostMatch() {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
+    const [details, setDetails] = useState('');
     const [error, setError] = useState(null);
     let navigate = useNavigate();
 
@@ -72,127 +74,156 @@ function HostMatch() {
         }
     }
 
+    const handleCancel = async (e) => {
+        e.preventDefault();
+        console.log('from cancel button')
+        navigate(`/matches`)
+    }
+
+
     return (
         <div className="host-container">
             <Navbar />
             <div className="row">
                 <h3 className="text-center m-3">Host a Match</h3>
-                <div className="col-6 offset-3">
-                    <form onSubmit={handleSubmit}>
+                <div className="col-4 offset-4 host-form">
+                    <form>
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Title: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Title</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='text'
                                     onChange={(e) => setTitle(e.target.value)}
                                     value={title}
+                                    required
                                 />
                             </div>
                         </div>
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Maximum Players: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Maximum players</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='number'
                                     onChange={(e) => setMaxPlayers(e.target.value)}
                                     value={maxPlayers}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Time: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Time</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='time'
                                     onChange={(e) => setTime(e.target.value)}
                                     value={time}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Duration: </label>
-                            <div className="col-sm-10">
-                                <input
-                                    className="form-control"
-                                    type='number'
-                                    onChange={(e) => setDuration(e.target.value)}
-                                    value={duration}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Date: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Date</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='date'
                                     onChange={(e) => setDate(e.target.value)}
                                     value={date}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">Address: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Duration (mins)</label>
+                            <div className="col-sm-9">
+                                <input
+                                    className="form-control"
+                                    type='number'
+                                    onChange={(e) => setDuration(e.target.value)}
+                                    value={duration}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-3 col-form-label col-form-label">Field address</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='text'
                                     onChange={(e) => setAddress(e.target.value)}
                                     value={address}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">City: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">City</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='text'
                                     onChange={(e) => setCity(e.target.value)}
                                     value={city}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">State: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">State</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='text'
                                     onChange={(e) => setState(e.target.value)}
                                     value={state}
+                                    required
                                 />
                             </div>
                         </div>
 
                         <div className="form-group row mb-2">
-                            <label className="col-sm-2 col-form-label col-form-label">ZIP code: </label>
-                            <div className="col-sm-10">
+                            <label className="col-sm-3 col-form-label col-form-label">Zip</label>
+                            <div className="col-sm-9">
                                 <input
                                     className="form-control"
                                     type='number'
-                            onChange={(e) => setZip(e.target.value)}
-                            value={zip}
+                                    onChange={(e) => setZip(e.target.value)}
+                                    value={zip}
+                                    required
                                 />
                             </div>
                         </div>
-                        <button className="btn btn-primary">Host Match</button>
-                        <button className="btn btn-danger">Cancel</button>
+
+                        <div className="form-group row mb-2">
+                            <label className="col-sm-3 col-form-label col-form-label">Additional details</label>
+                            <div className="col-sm-9">
+                                <textarea
+                                    className="form-control"
+                                    type='textarea'
+                                    onChange={(e) => setDetails(e.target.value)}
+                                    value={details}
+                                    rows={4}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="col-sm-9 offset-3 host-btns">
+                            <button className="host-btn host-match-btn" onSubmit={handleSubmit}>Host match</button>
+                            <button className="host-btn cancel-btn" onClick={handleCancel}>Cancel</button>
+                        </div>
                         {error && <div className="error text-danger">{error}</div>}
                     </form>
                 </div>
-
-
-
             </div >
         </div >
     );

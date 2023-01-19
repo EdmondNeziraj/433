@@ -25,7 +25,6 @@
 }
 
 .icon {
-    /* border: 1px solid red; */
     width: 25px;
     margin-right: 10px;
 }
@@ -42,5 +41,5 @@
 
 .card-btn:hover {
     color: white;
-    opacity: 0.95;
+    opacity: 0.9;
 }

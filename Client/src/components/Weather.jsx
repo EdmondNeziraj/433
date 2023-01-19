@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/Weather.css';
 import sunny from '../sunny.jpg';
-import rainy from '../assets/images/weather/rainy.jpg'
+// import rainy from '../assets/images/weather/rainy.jpg'
 
 function Weather({ date, zip}) {
     const [temp, setTemp] = useState('60');
@@ -29,7 +29,7 @@ function Weather({ date, zip}) {
     console.log(date, zip, temp, humidity, condition); 
  
     return (
-        <div className='weather-container' style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(${rainy})`}}>
+        <div className='weather-container' style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(${sunny})`}}>
             <h4 className='card-title'>Weather</h4>
             <p>Temperature: {temp}F</p>
             <p>Humidity: {humidity}%</p>
