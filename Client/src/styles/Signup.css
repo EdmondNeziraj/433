@@ -32,7 +32,7 @@
     font-size: 24px;
 }
 
-.login-container {
+.signup-container {
     width: 400px;
     margin: auto;
     border-radius: 10px;
@@ -42,16 +42,16 @@
     text-align: center;
 }
 
-.login-container__title {
+.signup-container__title {
     margin-bottom: 24px;
 }
 
-.login-main {
+.signup-main {
     text-align: center;
     margin: 4px;
 }
 
-.login-main input {
+.signup-main input {
     width: 300px;
     min-height: 32px;
     padding: 10px 12px;

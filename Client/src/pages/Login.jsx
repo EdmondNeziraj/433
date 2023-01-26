@@ -1,5 +1,4 @@
 import { useState } from 'react'
-// import { Link } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin';
 import '../styles/Login.css'
 
@@ -19,11 +18,9 @@ const Login = (props) => {
             <div className='welcome'>
                 <h1>Welcome</h1>
                 <h5><span>4-3-3</span> is a platform to schedule and organize pick up soccer games</h5>
-                {/* <Link to='/matches's className='item'>Browse Matches</Link> */}
                 <a className='home-btn home-btn-link' href='/matches'>Browse Matches</a>
-
             </div>
-
+ 
             <div className='login-container'>
                 <h3 className='login-container__title'>Log in</h3>
                 <div className='login-main'>
