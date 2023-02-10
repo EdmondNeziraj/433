@@ -7,6 +7,6 @@ export const useMatchesContext = () => {
     if (!context) {
         throw Error('useMatchesContext must be used inside an MatchesContextProvider');
     }
-
+ 
     return context;
 }

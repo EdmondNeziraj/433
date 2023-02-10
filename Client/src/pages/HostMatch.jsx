@@ -48,6 +48,8 @@ function HostMatch() {
             players
         }
 
+        console.log(match);
+
         const response = await fetch('http://localhost:5000/matches', {
             method: 'POST',
             body: JSON.stringify(match),
@@ -60,15 +62,17 @@ function HostMatch() {
         const json = await response.json();
 
         if (!response.ok) {
+            console.log(response);
             setError(json.error)
         }
         if (response.ok) {
+            console.log(response);
             setTitle('');
             setMaxPlayers(null);
             setTime('');
             setDuration(null);
             setError(null);
-            navigate(`/matches/${json._id}`);
+            navigate(`/matches`);
             console.log('new match added', json);
             dispatch({ type: 'CREATE_MATCH', payload: json });
         }
@@ -218,7 +222,7 @@ function HostMatch() {
                         </div>
 
                         <div className="col-sm-9 offset-3 host-btns">
-                            <button className="host-btn host-match-btn" onSubmit={handleSubmit}>Host match</button>
+                            <button className="host-btn host-match-btn" onClick={handleSubmit}>Host match</button>
                             <button className="host-btn cancel-btn" onClick={handleCancel}>Cancel</button>
                         </div>
                         {error && <div className="error text-danger">{error}</div>}

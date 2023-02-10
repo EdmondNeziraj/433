@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
+import { useMatchContext } from '../hooks/useMatchContext';
 import Navbar from '../components/Navbar';
 import Weather from "../components/Weather";
 import '../styles/MatchDetail.css';
@@ -12,19 +13,28 @@ function MatchDetail({ matches }) {
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
+    const [matchFull, setMatchFull] = useState(false);
     let navigate = useNavigate();
+    const { players, matchDispatch } = useMatchContext();
 
     const match = matches && matches.filter((match) => match._id === id)[0];
 
     useEffect(() => {
+        if (match) {
+            matchDispatch({ type: 'SET_PLAYERS', payload: match.players })
+        }
+
         if (user && match) {
             for (let i = 0; i < match.players.length; i++) {
-                if (user.email === match.players[i].email) {
+                if (user.username === match.players[i].username) {
                     setIsJoined(true);
+                }
+                if (match.players.length >= match.maxPlayers) {
+                    setMatchFull(true);
                 }
             }
         }
-    })
+    }, [user, match, matchDispatch])
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -36,7 +46,7 @@ function MatchDetail({ matches }) {
 
         if (!user) {
             setError('You must be logged in!');
-            return
+            return;
         }
 
         // send the delete request to the server
@@ -55,7 +65,6 @@ function MatchDetail({ matches }) {
         if (response.ok) {
             setError(null);
             navigate('/matches');
-            console.log('match deleted', json);
             dispatch({ type: 'DELETE_MATCH', payload: json })
         }
     }
@@ -68,20 +77,29 @@ function MatchDetail({ matches }) {
             return
         }
 
-        const matchToUpdate = match;
+        if (isJoined) {
+            setError('You are already joined in this match!');
+            return;
+        }
 
         if (match) {
-            // increment the currentPlayers count
-            matchToUpdate.currentPlayers = match.currentPlayers + 1;
-
             // add the player in the players array
-            matchToUpdate.players = [...match.players, user.userId];
+            match.players.push(user.userId)
+
+            // increment the currentPlayers count
+            match.currentPlayers += 1;
+
+            if (match.currentPlayers === match.maxPlayers) {
+                setMatchFull(true)
+            }
+
+            // console.log('join: ', match.currentPlayers, user.userId, match.players);
         }
 
         // send the patch request to the server
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'PATCH',
-            body: JSON.stringify(matchToUpdate),
+            body: JSON.stringify(match),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
@@ -97,8 +115,10 @@ function MatchDetail({ matches }) {
             setError(null);
             setIsJoined(true)
             navigate(`/matches/${json._id}`);
-            console.log('match updated', matchToUpdate);
-            dispatch({ type: 'UPDATE_MATCH', payload: matchToUpdate })
+            // console.log('match updated', matchToUpdate);
+            dispatch({ type: 'UPDATE_MATCH', payload: match });
+            matchDispatch({ type: 'JOIN_MATCH', payload: user });
+            console.log('players after joinMatch: ', players);
         }
     }
 
@@ -110,32 +130,28 @@ function MatchDetail({ matches }) {
             return
         }
 
-        const matchToUpdate = match;
+        if (!isJoined) {
+            setError('You are already left this match!');
+            return;
+        }
 
         if (match) {
-            console.log(match.currentPlayers, user.userId);
-
-            // find the index of the player to remove in the array
-            let index;
-            for (let i = 0; i < match.players.length; i++) {
-                if (match.players[i]._id === user.userId) {
-                    index = i;
+            if (match) {
+                const index = match.players.findIndex(player => player._id === user.userId);
+              
+                if (index > -1) {
+                  match.players.splice(index, 1);
+                  match.currentPlayers -= 1;
                 }
-            }
-
-            // remove players from the array
-            if (index > -1) {
-                match.players.splice(index, 1);
-            }
-
-            // update the currentPlayers count
-            matchToUpdate.currentPlayers = match.currentPlayers - 1;
+                // console.log('leave: ', match.currentPlayers, user.userId, match.players);
+              }
+              
         }
 
         // send the patch request to teh server
         const response = await fetch(`http://localhost:5000/matches/${id}`, {
             method: 'PATCH',
-            body: JSON.stringify(matchToUpdate),
+            body: JSON.stringify(match),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
@@ -151,8 +167,10 @@ function MatchDetail({ matches }) {
             setError(null);
             setIsJoined(false)
             navigate(`/matches/${json._id}`);
-            console.log('match updated', matchToUpdate);
-            dispatch({ type: 'UPDATE_MATCH', payload: matchToUpdate })
+            // console.log('match updated', matchToUpdate);
+            dispatch({ type: 'UPDATE_MATCH', payload: match })
+            matchDispatch({ type: 'LEAVE_MATCH', payload: user });
+            console.log('players after leaveMatch: ', players);
         }
     }
 
@@ -167,32 +185,30 @@ function MatchDetail({ matches }) {
                             <div className="row match-details">
                                 <div className="col-7 match-info">
                                     {match && (<h4> {match.title}</h4>)}
-                                    {match && match.host && (<p className="text-muted"> Hosted by: {match.host.email}</p>)}
+                                    {match && match.host && (<p className="text-muted"> Hosted by: {match.host.username}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/calendar.svg').default} alt='calendar' /> {match.date} at {match.time}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/clock.svg').default} alt='clock' /> {match.duration} mins</p>)}
-                                    {match && (<p><img className='icon' src={require('../assets/icons/user.svg').default} alt='user' /> {match.currentPlayers}/{match && match.maxPlayers}</p>)}
-                                    {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match && match.city}, {match && match.state} {match && match.zip}</p>)}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/user.svg').default} alt='user' /> {match.currentPlayers}/{match.maxPlayers}</p>)}
+                                    {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match.city}, {match.state} {match.zip}</p>)}
                                     {!user && <button className="details-btn" ><a href="/login">Log in to join match</a></button>}
-                                    {user && match && (user.email !== match.host.email) && isJoined && <button className="details-btn" onClick={handleLeave}>Leave</button>}
-                                    {user && match && (user.email !== match.host.email) && !isJoined && <button className="details-btn" onClick={handleJoin}>Join</button>}
-                                    {user && match && (user.email === match.host.email) && (
+                                    {user && match && (user.username !== match.host.username) && isJoined && <button className="details-btn" onClick={handleLeave}>Leave</button>}
+                                    {user && match && (user.username !== match.host.username) && !isJoined  && <button disabled={matchFull} className="details-btn disabled" onClick={handleJoin}>Join</button>}
+                                    {match && matchFull && (<p className='match-full'>Match is full</p>)}
+                                    {user && match && (user.username === match.host.username) && (
                                         <div className="edit-btns">
                                             <button className="edit-btn update-btn" onClick={handleUpdate}>Update</button>
                                             <button className="edit-btn delete-btn" onClick={handleDelete}>Delete</button>
                                         </div>
                                     )}
-
                                 </div>
                                 <div className="col-5 players-container">
                                     <h5 className="card-title mb-2">Players</h5>
-
                                     <div className="players-items">
-                                        {match && match.players && match.players.map((player) => {
-                                            return <p key={player._id}>{player.username ? player.username : player.email}</p>
+                                        {players.map((player, index) => {
+                                            return <p key={index}>{player.username ? player.username : player.email}</p>
                                         })}
                                     </div>
                                 </div>
-
                             </div>
                             <div className="row additional-details">
                                 {/* <div className="col-12"> */}
@@ -220,51 +236,3 @@ function MatchDetail({ matches }) {
 }
 
 export default MatchDetail;
-
-// <div className="text-center">
-//                     <Dropzone
-//                       onDrop={(files) => {
-//                         if (files.length > 0) {
-//                           waitBase64(files[0]);
-//                           setSelectedImage(files[0]);
-//                         }
-//                         files.map((file) => {
-//                           setEntryData({
-//                             ...entryData,
-//                             file: file,
-//                           });
-//                         });
-//                       }}
-//                     >
-//                       {({ getRootProps, getInputProps }) => (
-//                         <div className="container">
-//                           <div
-//                             {...getRootProps({
-//                               className: "dropzone",
-//                             })}
-//                           >
-//                             <input {...getInputProps()} />
-//                             {selectedImage ? (
-//                               <img
-//                                 src={URL.createObjectURL(selectedImage)}
-//                                 alt="Thumb"
-//                                 className="upload-icon upload-icon-edit"
-//                               />
-//                             ) : (
-//                               <div>
-//                                 <img
-//                                   src="/assets/icons/upload.svg"
-//                                   alt="upload"
-//                                   className="upload-icon"
-//                                 />
-//                                 <div>
-//                                   Drag 'n' drop some files here, or click to
-//                                   select files
-//                                 </div>
-//                               </div>
-//                             )}
-//                           </div>
-//                         </div>
-//                       )}
-//                     </Dropzone>
-//                   </div>

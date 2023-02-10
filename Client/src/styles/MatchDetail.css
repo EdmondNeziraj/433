@@ -14,8 +14,8 @@
 }
 
 .players-items {
-    height: 90%;
-    overflow: auto;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .details-btn {
@@ -44,6 +44,17 @@
     background-color: rgb(37, 83, 83);
     color: white;
     opacity: 0.9;
+}
+
+.details-btn:disabled {
+    background-color: rgb(37, 83, 83);
+    color: white;
+    opacity: 0.9;
+}
+
+.match-full {
+    color: red;
+    padding: 4px 0;
 }
 
 .edit-btns {

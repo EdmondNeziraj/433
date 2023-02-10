@@ -7,10 +7,10 @@ export const matchesReducer = (state, action) => {
         case 'SET_MATCHES':
             return {
                 matches: action.payload
-            }
+            } 
         case 'CREATE_MATCH':
             return {
-                matches: [action.payload, ...state.matches]
+                matches: [...state.matches, action.payload]
             }
         case 'UPDATE_MATCH':
             const updatedMatches = state.matches.map(match => match._id === action.payload._id ? action.payload : match)

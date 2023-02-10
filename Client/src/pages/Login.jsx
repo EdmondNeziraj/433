@@ -3,14 +3,14 @@ import { useLogin } from '../hooks/useLogin';
 import '../styles/Login.css'
 
 const Login = (props) => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { login, error, isLoading } = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await login(email, password);
+        await login(username, password);
     }
 
     return (
@@ -26,10 +26,10 @@ const Login = (props) => {
                 <div className='login-main'>
                     <form className="login" onSubmit={handleSubmit}>
                         <input
-                            placeholder='Email'
-                            type='email'
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
+                            placeholder='Username'
+                            type='username'
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
                         />
                         <input
                             placeholder='Password'

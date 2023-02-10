@@ -11,7 +11,7 @@ function Matches({ matches }) {
                 <h2>All matches:</h2>
                 <div className="row match-card-container">
                     {matches && matches.map((match, index) => (
-                        <div className="col-4" key={index}>
+                        <div className="col-lg-4 col-sm-6" key={index}>
                             <MatchCard
                                 match={match} />
                         </div>

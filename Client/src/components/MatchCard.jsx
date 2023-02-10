@@ -8,7 +8,7 @@ function MatchCard({ match }) {
             <div className='row'>
                 {/* <div className="col md-4">
                 <img className='img-fluid' src="../../assets/images/wallpaper4.jpg" alt=''></img> */}
-                <div className='col-12'>
+                <div className='col-12'> 
                     <div className="card-body">
                         {/* <Link to={`/matches/${match._id}`} className='item'><h5 className='card-title'>{match.title}</h5></Link> */}
                         <h4 className='card-title'>{match.title}</h4>

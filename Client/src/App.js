@@ -27,9 +27,7 @@ function App() {
     }
 
     fetchMatches();
-  }, []);
-
-  console.log(matches);
+  }, [dispatch]);
 
   return (
     <div className='app-body'>
