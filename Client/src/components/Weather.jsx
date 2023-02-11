@@ -7,13 +7,15 @@ function Weather({ date, zip}) {
     const [humidity, setHumidity] = useState('70');
     const [condition, setCondition] = useState('Sunny')
     const [image, setImage] = useState('');
+    const [apiKey, setApiKey] = useState(null);
 
     useEffect(() => {
+        setApiKey(process.env.REACT_APP_API_KEY);
+        console.log('apikey: ', apiKey);
         const fetchWeather = async () => {
 
-            const data = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=3269e5b1c838479f82a51845221712&q=${zip}&dt=${date}`)
+            const data = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zip}&dt=${date}`)
             const json = await data.json();
-            console.log('we making this call to api: ', `https://api.weatherapi.com/v1/forecast.json?key=3269e5b1c838479f82a51845221712&q=${zip}&dt=${date}`);
 
             const day = json.forecast.forecastday[0].day;
 
@@ -24,10 +26,8 @@ function Weather({ date, zip}) {
         }
 
         fetchWeather();
-    }, [date, zip]) 
+    }, [date, zip, apiKey]) 
 
-    // console.log(date, zip, temp, humidity, condition); 
- 
     return (
         <div className='weather-container' style={{backgroundImage:`linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url(${cloudy})`}}>
             <h4 className='card-title'>Weather</h4>

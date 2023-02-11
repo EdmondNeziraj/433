@@ -92,8 +92,6 @@ function MatchDetail({ matches }) {
             if (match.currentPlayers === match.maxPlayers) {
                 setMatchFull(true)
             }
-
-            // console.log('join: ', match.currentPlayers, user.userId, match.players);
         }
 
         // send the patch request to the server
@@ -115,7 +113,6 @@ function MatchDetail({ matches }) {
             setError(null);
             setIsJoined(true)
             navigate(`/matches/${json._id}`);
-            // console.log('match updated', matchToUpdate);
             dispatch({ type: 'UPDATE_MATCH', payload: match });
             matchDispatch({ type: 'JOIN_MATCH', payload: user });
             console.log('players after joinMatch: ', players);
@@ -138,14 +135,13 @@ function MatchDetail({ matches }) {
         if (match) {
             if (match) {
                 const index = match.players.findIndex(player => player._id === user.userId);
-              
+
                 if (index > -1) {
-                  match.players.splice(index, 1);
-                  match.currentPlayers -= 1;
+                    match.players.splice(index, 1);
+                    match.currentPlayers -= 1;
                 }
-                // console.log('leave: ', match.currentPlayers, user.userId, match.players);
-              }
-              
+            }
+
         }
 
         // send the patch request to teh server
@@ -167,7 +163,6 @@ function MatchDetail({ matches }) {
             setError(null);
             setIsJoined(false)
             navigate(`/matches/${json._id}`);
-            // console.log('match updated', matchToUpdate);
             dispatch({ type: 'UPDATE_MATCH', payload: match })
             matchDispatch({ type: 'LEAVE_MATCH', payload: user });
             console.log('players after leaveMatch: ', players);
@@ -192,7 +187,7 @@ function MatchDetail({ matches }) {
                                     {match && (<p><img className='icon' src={require('../assets/icons/address.svg').default} alt='address' />  {match.address}, {match.city}, {match.state} {match.zip}</p>)}
                                     {!user && <button className="details-btn" ><a href="/login">Log in to join match</a></button>}
                                     {user && match && (user.username !== match.host.username) && isJoined && <button className="details-btn" onClick={handleLeave}>Leave</button>}
-                                    {user && match && (user.username !== match.host.username) && !isJoined  && <button disabled={matchFull} className="details-btn disabled" onClick={handleJoin}>Join</button>}
+                                    {user && match && (user.username !== match.host.username) && !isJoined && <button disabled={matchFull} className="details-btn disabled" onClick={handleJoin}>Join</button>}
                                     {match && matchFull && (<p className='match-full'>Match is full</p>)}
                                     {user && match && (user.username === match.host.username) && (
                                         <div className="edit-btns">
@@ -211,7 +206,6 @@ function MatchDetail({ matches }) {
                                 </div>
                             </div>
                             <div className="row additional-details">
-                                {/* <div className="col-12"> */}
                                 <h5>Additional Details</h5>
                                 <p>Please arrive at least 10 minutes before the match start time.</p>
                                 <p>This field is turf so you can wear whatever shoes you want,
@@ -221,7 +215,6 @@ function MatchDetail({ matches }) {
                                     There is a parking lot inside the park, however, sometimes it is full and you might
                                     have to park in the streets outside of the parking lot.
                                 </p>
-                                {/* </div> */}
                             </div>
 
                         </div>
