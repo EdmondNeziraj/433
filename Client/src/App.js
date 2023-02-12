@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const response = await fetch('http://localhost:5000/matches')
+      const response = await fetch('http://localhost:5000/api/matches')
       const json = await response.json();
 
       if (response.ok) {

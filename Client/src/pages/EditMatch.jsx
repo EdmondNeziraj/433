@@ -50,7 +50,7 @@ function EditMatch({ matches }) {
 
         console.log('just updated:', matchUpdated)
 
-        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/matches/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(matchUpdated),
             headers: {

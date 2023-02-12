@@ -50,7 +50,7 @@ function HostMatch() {
 
         console.log(match);
 
-        const response = await fetch('http://localhost:5000/matches', {
+        const response = await fetch('http://localhost:5000/api/matches', {
             method: 'POST',
             body: JSON.stringify(match),
             headers: {

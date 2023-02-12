@@ -50,7 +50,7 @@ function MatchDetail({ matches }) {
         }
 
         // send the delete request to the server
-        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/matches/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`
@@ -95,7 +95,7 @@ function MatchDetail({ matches }) {
         }
 
         // send the patch request to the server
-        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/matches/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(match),
             headers: {
@@ -145,7 +145,7 @@ function MatchDetail({ matches }) {
         }
 
         // send the patch request to teh server
-        const response = await fetch(`http://localhost:5000/matches/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/matches/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(match),
             headers: {

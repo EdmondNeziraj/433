@@ -16,7 +16,7 @@ const router = express.Router();
 // GET all matches
 router.get('/', getMatches)
 
-// GET a single match
+// GET a single match 
 router.get('/:id', getMatch)
 
 // CREATE a new match
