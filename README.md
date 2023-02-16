@@ -1,6 +1,5 @@
-# 433
-
-This is an example README file demonstrating a suggested README file structure for software projects on GitHub.  You can copy this file into your project repository and edit the text as needed.
+# 4-3-3
+4-3-3 is a web application that allows soccer players to schedule and organize pick-up soccer games. It provides a user-friendly interface for users to browse through existing matches, and view details such as location, number of players, players who have already joined the match and their names, and any additional information provided by the host. With an account, users can join matches, host their own matches, edit or delete a match they have hosted, and keep track of all the matches they have joined or hosted.
 
 
 Table of contents
@@ -37,7 +36,18 @@ a command-line command here
 ```
 
 Sometimes, subsections may be needed for different operating systems or particularly complicated installations.
- 
+ To get started with Amateur Soccer Platform, follow these steps:
+
+Clone the repository.
+Navigate to the project directory in your terminal.
+Run npm install to install all necessary dependencies.
+Create a .env file in the root directory of the project with the following environment variables:
+makefile
+Copy code
+MONGODB_URI=your-mongodb-uri
+JWT_SECRET=your-jwt-secret
+Run npm start to start the server.
+Navigate to http://localhost:3000 to use the application.
 
 Usage
 -----
