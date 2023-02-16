@@ -4,6 +4,7 @@ const Match = require('../models/match');
 // GET all matches
 const getMatches = async (req, res) => {
     const matches = await Match.find({}).populate('host').populate('players');
+
     res.status(200).send(matches);
 }
 

@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const response = await fetch('https:433.edmondneziraj.com/api/matches')
+      const response = await fetch('https://433.edmondneziraj.com/api/matches')
       const json = await response.json();
 
       if (response.ok) {
