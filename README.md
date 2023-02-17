@@ -3,4 +3,4 @@
 
 The frontend of the application is built using ReactJS, providing a smooth and responsive user interface. The use of ReactJS allows for seamless navigation and dynamic updates to the match information, ensuring users have access to the most up-to-date information. The backend of the application is built using Node.js, Express, and MongoDB, with a variety of libraries used to enhance functionality. The use of MongoDB allows for flexible and scalable storage of the users’ and matches’ data. User authentication and authorization are handled securely using the Bcrypt library to ensure the protection of users’ sensitive information.
 
-The project can be accessed here: https://433.edmondneziraj.com/
+Live demo: https://433.edmondneziraj.com/
