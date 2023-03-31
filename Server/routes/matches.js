@@ -28,6 +28,4 @@ router.patch('/:id', requireAuth, updateMatch)
 // DELETE a workout
 router.delete('/:id', requireAuth, deleteMatch)
 
-
-
 module.exports = router
