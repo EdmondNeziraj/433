@@ -59,7 +59,21 @@ nav a {
 }
 
 @media (max-width: 424px) {
-    .nav-items {
-      display: none;
+    .nav-actions {
+        display: flex;
+        flex-direction: column;  
+    }
+
+    .item:first-child {
+        margin-right: 16px;
+        border: none;
+        padding-right: 16px;
+    }
+
+    .nav-logs {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column; 
     }
   }
