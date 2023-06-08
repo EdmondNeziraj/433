@@ -2,9 +2,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    width: 100%;
     background-color: rgb(37, 83, 83);
-    align-items: center;
     padding-right: 32px;
     padding-left: 32px;
 }
@@ -12,8 +10,6 @@
 .logo {
     width: 100px;
     margin-right: 32px;
-    display: flex;
-    align-items: center;
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -25,7 +21,6 @@
 
 .nav-items {
     display: flex;
-    width: 50%;
     align-items: center;  
 }
 
@@ -62,3 +57,9 @@ nav a {
     border-right: 1px solid #fff;
     padding-right: 10px;
 }
+
+@media (max-width: 424px) {
+    .nav-items {
+      display: none;
+    }
+  }

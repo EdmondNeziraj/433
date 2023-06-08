@@ -176,9 +176,9 @@ function MatchDetail({ matches }) {
                 <div className="col-10 offset-1">
                     <div className="row">
                         {error && (<div>{error}</div>)}
-                        <div className="col-8">
+                        <div className="col-12 col-sm-8">
                             <div className="row match-details">
-                                <div className="col-7 match-info">
+                                <div className="col-12 col-sm-7 match-info">
                                     {match && (<h4> {match.title}</h4>)}
                                     {match && match.host && (<p className="text-muted"> Hosted by: {match.host.username}</p>)}
                                     {match && (<p><img className='icon' src={require('../assets/icons/calendar.svg').default} alt='calendar' /> {match.date} at {match.time}</p>)}
@@ -196,7 +196,7 @@ function MatchDetail({ matches }) {
                                         </div>
                                     )}
                                 </div>
-                                <div className="col-5 players-container">
+                                <div className="col-12 col-sm-5 players-container">
                                     <h5 className="card-title mb-2">Players</h5>
                                     <div className="players-items">
                                         {players.map((player, index) => {
@@ -205,7 +205,7 @@ function MatchDetail({ matches }) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row additional-details">
+                            <div className="row d-none d-md-block additional-details">
                                 <h5>Additional Details</h5>
                                 <p>Please arrive at least 10 minutes before the match start time.</p>
                                 <p>This field is turf so you can wear whatever shoes you want,
@@ -218,7 +218,7 @@ function MatchDetail({ matches }) {
                             </div>
 
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-sm-4">
                             <Weather date={match && match.date} zip={match && match.zip} />
                         </div>
                     </div>

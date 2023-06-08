@@ -1,21 +1,27 @@
 .match-details {
-    max-height: 440px;
+    /* max-height: 440px; */
+    border: 1px solid red;
+
 }
 
 .match-info {
     height: 100%;
     margin-bottom: 10px;
     border-right: 1px solid #eee;
+    border: 1px solid red;
 }
 
 .players-container {
     height: 100%;
     padding-left: 24px;
+    border: 1px solid blue;
+
 }
 
 .players-items {
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
+    border: 1px solid blue;
 }
 
 .details-btn {

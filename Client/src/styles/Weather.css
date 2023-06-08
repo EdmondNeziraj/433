@@ -24,6 +24,17 @@ p {
     right: 24px;
 }
 
+@media (max-width: 424px) {
+    .weather-icon {
+        position: static;
+        text-align: right;
+    }
+
+    .weather-container {
+        padding-bottom: 0px;
+    }
+}
+
 .weather-icon img {
     width: 110px;
 }

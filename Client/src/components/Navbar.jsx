@@ -29,7 +29,7 @@ function Navbar() {
                         <Link to='/' onClick={handleClick}>Log out</Link>
                     </div>
                 )}
-
+ 
                 {!user && (
                     <div>
                         <Link to='/login'>Log in</Link>
