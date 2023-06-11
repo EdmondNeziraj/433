@@ -88,3 +88,20 @@
 .account-text {
     margin-top: 8px;
 }
+
+@media (max-width: 600px) {
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .welcome {
+        padding-top: 24px;
+    }
+
+    .login-container {
+        width: 100%;
+    }
+}
