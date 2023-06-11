@@ -88,3 +88,21 @@
 .account-text {
     margin-top: 8px;
 }
+
+@media (max-width: 600px) {
+    .background {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .welcome {
+        padding-top: 64px;
+    }
+
+    .signup-container {
+        width: 100%;
+        border-radius: 0px;
+    }
+}

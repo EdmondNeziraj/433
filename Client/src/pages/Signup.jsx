@@ -18,7 +18,7 @@ const Signup = () => {
         <div className='background'>
             <div className='welcome'>
                 <h1>Welcome</h1>
-                <p>4-3-3 is a platform to schedule and organize pick up soccer games</p>
+                <h5><span>4-3-3</span> is a platform to schedule and organize pick up soccer games</h5>
                 <a className='home-btn home-btn-link' href='/matches'>Browse Matches</a>
             </div>
 
