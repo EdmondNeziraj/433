@@ -62,7 +62,6 @@ nav a {
     .nav-actions {
         display: flex;
         flex-direction: column;  
-        border: 1px solid red;
     }
 
     .item:first-child {
@@ -76,7 +75,5 @@ nav a {
         text-decoration: none;
         display: flex;
         flex-direction: column; 
-        border: 1px solid red;
-
     }
   }
