@@ -11,43 +11,53 @@ function Navbar() {
     const [collapse, setCollapse] = useState("collapse");
 
     const toggleNavbar = () => {
-        if (collapse === "collapse navbar-collapse") {
-            setCollapse("");
-        } else {
-            setCollapse("collapse navbar-collapse");
-        }
+        setCollapse(prevCollapse => (prevCollapse === "collapse" ? "" : "collapse"));
     }
 
-    const handleClick = () => {
+    const handleLogout = () => {
         logout();
         navigate(`/`)
     }
 
     return (
         <div>
-            <nav className='navbar sticky-top navbar-expand-lg'>
+            <nav className='navbar sticky-top navbar-expand-md'>
                 <div className='container-fluid'>
-                    <a href='/' className='logo navbar-brand'>4-3-3</a>
-                    <button onClick={toggleNavbar} className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <Link to='/' className='logo navbar-brand'>
+                        4-3-3
+                    </Link>
+                    <button 
+                        onClick={toggleNavbar} 
+                        className="navbar-toggler navbar-dark" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation"
+                    >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div onClick={toggleNavbar} className={collapse} id="navbarNavAltMarkup">
-                        <div className='navbar-nav nav-items'>
-                                <a href='/matches' className='item nav-link'>Matches</a>
-                                <a href='/host' className='item nav-link'>Host a match</a>
-                        </div>
-                        <div className='navbar-nav ms-auto'>
-                            {user && (
-                                <div className='nav-logs navbar-nav ms-auto'>
-                                    <span className='email'>{user.username ? user.username : user.email}</span>
-                                    <a href='/' className='nav-link' onClick={handleClick}>Log out</a>
+                    <div className={`${collapse} navbar-collapse`} id="navbarNavAltMarkup">
+                        <ul className='navbar-nav nav-items'>
+                            <li className='nav-item'>
+                                <Link to='/matches' className='item nav-link'>Matches</Link>
+                            </li>
+                            <li className='nav-item'>
+                                <Link to='/host' className='item nav-link'>Host a match</Link>
+                            </li>
+                        </ul>
+                        <div className='navbar-nav'>
+                            {user ? (
+                                <div className='nav-logs navbar-nav'>
+                                    <span className='email'>
+                                        {user.username ? user.username : user.email}
+                                    </span>
+                                    <Link to='/' className='nav-link' onClick={handleLogout}>Log out</Link>
                                 </div> 
-                            )}
-
-                            {!user && (
-                                <div className='nav-logs navbar-nav ms-auto'>
-                                    <a className='nav-link' href='/login' to='/login'>Log in</a>
+                            ):(
+                                <div className='nav-logs navbar-nav'>
+                                    <Link className='nav-link' to='/login'>Log in</Link>
                                     <Link className='nav-link' to='/signup'>Sign up</Link>
                                 </div>
                             )}
@@ -55,24 +65,6 @@ function Navbar() {
                     </div>
                 </div>
             </nav>
-{/* 
-
-                        <div class="navbar-nav">
-                            <a class="nav-link active" href="/">Home</a>
-                            <a class="nav-link" href="/campgrounds">Campgrounds</a>
-                            <a class="nav-link" href="/campgrounds/new">New Campground</a>
-                        </div>
-                        <div class="navbar-nav ms-auto">
-                            <% if (!currentUser) { %>
-                        <a class="nav-link" href="/login">Log In</a>
-                        <a class="nav-link" href="/register">Register</a>
-                        <%} else { %>
-                        <a class="nav-link" href="/logout">Log Out</a>
-                        <%};%>
-                        </div>
-                    </div>
-                </div>
-            </nav> */}
         </div >
     );
 }
