@@ -18,13 +18,25 @@ function App() {
 
   useEffect(() => {
     const fetchMatches = async () => {
-      const response = await fetch('https://433.edmondneziraj.com/api/matches')
-      const json = await response.json();
-
-      if (response.ok) {
-        dispatch({ type: 'SET_MATCHES', payload: json })
+      try {
+        const response = await fetch('https://433.edmondneziraj.com/api/matches');
+        if (response.ok) {
+          const json = await response.json();
+          const sortedMatches = json.sort((a, b) => {
+            const dateTimeA = new Date(`${a.date} ${a.time}`);
+            const dateTimeB = new Date(`${b.date} ${b.time}`);
+            return dateTimeA - dateTimeB;
+          });
+          dispatch({ type: 'SET_MATCHES', payload: sortedMatches });
+        } else {
+          // Handle error response
+          console.log('Error fetching matches');
+        }
+      } catch (error) {
+        // Handle fetch error
+        console.log('Error fetching matches:', error);
       }
-    }
+    };
 
     fetchMatches();
   }, [dispatch]);
