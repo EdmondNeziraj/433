@@ -1,22 +1,46 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "../components/Navbar";
 import MatchCard from "../components/MatchCard";
+import Pagination from "../components/Pagination";
+import { useMatchesContext } from "../hooks/useMatchesContext.js";
 import '../styles/Matches.css'
 
-function Matches({ matches }) {
+function Matches() {
+    const { matches, dispatch } = useMatchesContext();
     const [currentPage, setCurrentPage] = useState(1);
     const matchesPerPage = 6;
 
-    const lastMatch = currentPage * matchesPerPage;
-    const firstMatch = lastMatch - matchesPerPage;
     let currentMatches;
     if (matches) {
-        currentMatches = matches.slice(firstMatch, lastMatch);
+        const startIndex = (currentPage - 1) * matchesPerPage;
+        currentMatches = matches.slice(startIndex, startIndex + matchesPerPage);
     }
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    }
+    useEffect(() => {
+        const fetchMatches = async () => {
+          try {
+            const response = await fetch(`https://433.edmondneziraj.com/api/matches?pageSize=${matchesPerPage}&page=1&sort=date`);
+            if (response.ok) {
+              const json = await response.json();
+              console.log(json);
+              const sortedMatches = json.sort((a, b) => {
+                const timeA = new Date(a.time);
+                const timeB = new Date(b.time);
+                return timeA - timeB;
+              });
+              dispatch({ type: 'SET_MATCHES', payload: sortedMatches });
+            } else {
+              // Handle error response
+              console.log('Error fetching matches');
+            }
+          } catch (error) {
+            // Handle fetch error
+            console.log('Error fetching matches:', error);
+          }
+        };
+    
+        fetchMatches();
+      }, [dispatch]);
 
     return (
         <div className="matches-container">
@@ -30,18 +54,13 @@ function Matches({ matches }) {
                         </div>
                     ))}
                 </div>
-                <div className="pagination">
-                    {/* Render pagination controls */}
-                    {Array.from({ length: Math.ceil(matches.length / matchesPerPage) }, (_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => handlePageChange(index + 1)}
-                            className={currentPage === index + 1 ? "active" : ""}
-                        >
-                            {index + 1}
-                        </button>
-                    ))}
-                </div>
+                <Pagination
+                    className="pagination-bar"
+                    currentPage={currentPage}
+                    totalCount={matches ? matches.length : 0}
+                    pageSize={matchesPerPage}
+                    onPageChange={page => setCurrentPage(page)}
+                />
             </div>
         </div>
     );

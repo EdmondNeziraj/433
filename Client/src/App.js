@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import './App.css';
 import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom"
 import HostMatch from './pages/HostMatch';
 import Matches from './pages/Matches';
@@ -46,7 +45,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={user ? <Matches matches={matches} /> : <Login/>} />
-          <Route path='/matches' element={<Matches matches={matches} />} />
+          <Route path='/matches' element={<Matches />} />
           <Route path='/host' element={user ? <HostMatch /> : <Login error={'You must be logged in to host a match!'} />} />
           <Route path="/matches/:id" element={<MatchDetail matches={matches} />} />
           <Route path="/matches/:id/edit" element={<EditMatch matches={matches} />} />
