@@ -11,7 +11,6 @@ function Weather({ date, zip}) {
 
     useEffect(() => {
         setApiKey(process.env.REACT_APP_API_KEY);
-        console.log('apikey: ', apiKey);
         const fetchWeather = async () => {
 
             const data = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${zip}&dt=${date}`)

@@ -32,21 +32,3 @@ export const MatchContextProvider = ({ children }) => {
         </MatchContext.Provider>
     )
 }
-
-// export const MatchContextProvider = ({ children }) => {
-//     const [players, setPlayers] = useState([]);
-
-//     const joinMatch = (player) => {
-//         setPlayers([...players, player]);
-//     };
-
-//     const leaveMatch = (playerId) => {
-//         setPlayers(players.filter((player) => player._id !== playerId));
-//     };
-
-//     return (
-//         <MatchContext.Provider value={{ players, joinMatch, leaveMatch }}>
-//             {children}
-//         </MatchContext.Provider>
-//     )
-// }

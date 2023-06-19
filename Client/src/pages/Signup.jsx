@@ -22,30 +22,6 @@ const Signup = () => {
                 <a className='home-btn home-btn-link' href='/matches'>Browse Matches</a>
             </div>
 
-            {/* <div className='login-container'>
-                <h3 className='login-container__title'>Log in</h3>
-                <div className='login-main'>
-                    <form className="login" onSubmit={handleSubmit}>
-                        <input
-                            placeholder='Email'
-                            type='email'
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                        />
-                        <input
-                            placeholder='Password'
-                            type='password'
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                        />
-                        <button className='home-btn' disabled={isLoading}>Log in</button>
-                        <p className='account-text'>Don't have an account? <a href='/signup'>Sign up</a></p>
-                        {error && <div className='error text-danger'>{error}</div>}
-                        {props.error && <div className='error text-danger'>{props.error}</div>}
-                    </form>
-                </div>
-            </div> */}
-
             <div className='signup-container'>
                 <h3 className='signup-container__title'>Sign up</h3>
                 <div className='signup-main'>

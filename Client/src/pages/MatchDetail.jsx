@@ -3,13 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useMatchesContext } from "../hooks/useMatchesContext";
 import { useMatchContext } from '../hooks/useMatchContext';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import Weather from "../components/Weather";
 import '../styles/MatchDetail.css';
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
-    const { dispatch } = useMatchesContext();
+    // const { dispatch } = useMatchesContext();
+    const dispatch = useDispatch();
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
@@ -133,15 +135,12 @@ function MatchDetail({ matches }) {
         }
 
         if (match) {
-            if (match) {
-                const index = match.players.findIndex(player => player._id === user.userId);
+            const index = match.players.findIndex(player => player._id === user.userId);
 
-                if (index > -1) {
-                    match.players.splice(index, 1);
-                    match.currentPlayers -= 1;
-                }
+            if (index > -1) {
+                match.players.splice(index, 1);
+                match.currentPlayers -= 1;
             }
-
         }
 
         // send the patch request to teh server
