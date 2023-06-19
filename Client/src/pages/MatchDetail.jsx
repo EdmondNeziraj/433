@@ -10,8 +10,8 @@ import '../styles/MatchDetail.css';
 
 function MatchDetail({ matches }) {
     const { id } = useParams();
-    // const { dispatch } = useMatchesContext();
-    const dispatch = useDispatch();
+    const { dispatch } = useMatchesContext();
+    // const dispatch = useDispatch();
     const { user } = useAuthContext();
     const [error, setError] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
@@ -20,6 +20,8 @@ function MatchDetail({ matches }) {
     const { players, matchDispatch } = useMatchContext();
 
     const match = matches && matches.filter((match) => match._id === id)[0];
+    // const match = useSelector(state => state.matches.matches.find(match => match._id === id));
+
 
     useEffect(() => {
         if (match) {
