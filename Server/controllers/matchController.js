@@ -85,18 +85,9 @@ const updateMatch = async (req, res) => {
         players,
     } = req.body;
 
-    // const { currentPlayers, player } = req.body;
-
-    // console.log(currentPlayers, player)
-
-    // const match = await Match.findById(id);
-    // match.currentPlayers = currentPlayers;
-    // match.players.push(player);
 
     const match = await Match.findByIdAndUpdate(id, { ...req.body }); 
-    // await match.save();
-    
-    // const updatedMatch = await Match.findById(id);
+
     if (!match) {
         return res.status(404).send({error: "No such match"});
     }
